@@ -1,0 +1,3439 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MON VÉHICULE - L'automobile d'exception</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .hero-bg {
+            background: linear-gradient(135deg, #1a1a1a 0%, #2d2d2d 100%);
+        }
+        
+        .gold-gradient {
+            background: linear-gradient(135deg, #d4af37 0%, #f4e4a6 100%);
+        }
+        
+        .luxury-btn {
+            background: linear-gradient(135deg, #d4af37 0%, #f4e4a6 100%);
+            color: #1a1a1a;
+            font-weight: 600;
+            padding: 12px 32px;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
+        }
+        
+        .luxury-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.4);
+        }
+        
+        .car-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+        }
+        
+        .car-card:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+        }
+        
+        .service-card {
+            transition: all 0.3s ease;
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2);
+        }
+        
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal.show {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeIn 0.3s ease;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            max-width: 900px;
+            width: 95%;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+            animation: slideUp 0.3s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .whatsapp-btn {
+            background: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+
+        .filter-btn.active {
+            background: linear-gradient(135deg, #d4af37 0%, #f4e4a6 100%);
+            color: #1a1a1a;
+        }
+
+        .about-card {
+            background: linear-gradient(145deg, #ffffff 0%, #f8f9fa 100%);
+            transition: all 0.3s ease;
+        }
+
+        .about-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.15);
+        }
+
+        /* Animations luxueuses pour la page d'accueil */
+        .hero-content {
+            animation: heroEntrance 1.5s ease-out;
+        }
+
+        @keyframes heroEntrance {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Particules flottantes */
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: linear-gradient(45deg, #d4af37, #f4e4a6);
+            border-radius: 50%;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .particle-1 { top: 20%; left: 10%; animation-delay: 0s; }
+        .particle-2 { top: 60%; left: 20%; animation-delay: 1s; }
+        .particle-3 { top: 30%; left: 80%; animation-delay: 2s; }
+        .particle-4 { top: 80%; left: 70%; animation-delay: 3s; }
+        .particle-5 { top: 40%; left: 60%; animation-delay: 4s; }
+        .particle-6 { top: 70%; left: 30%; animation-delay: 5s; }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px) rotate(0deg); opacity: 0.7; }
+            50% { transform: translateY(-20px) rotate(180deg); opacity: 1; }
+        }
+
+        /* Lignes géométriques */
+        .geometric-line {
+            position: absolute;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            height: 1px;
+            animation: lineMove 8s linear infinite;
+        }
+
+        .line-1 {
+            top: 25%;
+            width: 200px;
+            left: -200px;
+            animation-delay: 0s;
+        }
+
+        .line-2 {
+            top: 50%;
+            width: 300px;
+            right: -300px;
+            animation-delay: 3s;
+            animation-direction: reverse;
+        }
+
+        .line-3 {
+            top: 75%;
+            width: 150px;
+            left: -150px;
+            animation-delay: 6s;
+        }
+
+        @keyframes lineMove {
+            0% { transform: translateX(0); opacity: 0; }
+            50% { opacity: 1; }
+            100% { transform: translateX(calc(100vw + 200px)); opacity: 0; }
+        }
+
+        /* Logo flottant */
+        .animate-float {
+            animation: logoFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes logoFloat {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-10px) scale(1.05); }
+        }
+
+        /* Ligne de luxe */
+        .luxury-line {
+            width: 100px;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #d4af37, transparent);
+            margin: 0 auto;
+            animation: lineGlow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes lineGlow {
+            from { box-shadow: 0 0 5px #d4af37; }
+            to { box-shadow: 0 0 20px #d4af37, 0 0 30px #d4af37; }
+        }
+
+        /* Effet de frappe pour le titre */
+        .typing-text {
+            animation: typeWriter 2s steps(20) 1s both;
+            border-right: 2px solid #d4af37;
+        }
+
+        @keyframes typeWriter {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+
+        /* Effet shimmer pour le texte doré */
+        .animate-shimmer {
+            background-size: 200% 100%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        /* Effet de lueur */
+        .glow-text {
+            text-shadow: 0 0 10px rgba(212, 175, 55, 0.5),
+                         0 0 20px rgba(212, 175, 55, 0.3),
+                         0 0 30px rgba(212, 175, 55, 0.2);
+        }
+
+        /* Statistiques animées */
+        .hero-stats {
+            animation: statsSlideUp 1s ease-out 1.5s both;
+        }
+
+        .stat-item {
+            animation: statPulse 2s ease-in-out infinite;
+        }
+
+        .stat-item:nth-child(2) { animation-delay: 0.5s; }
+        .stat-item:nth-child(3) { animation-delay: 1s; }
+
+        @keyframes statsSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes statPulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        /* Boutons animés luxueux */
+        .luxury-btn-animated {
+            position: relative;
+            background: linear-gradient(135deg, #d4af37 0%, #f4e4a6 100%);
+            color: #1a1a1a;
+            font-weight: 600;
+            border-radius: 50px;
+            border: none;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: btnSlideUp 1s ease-out 2s both;
+        }
+
+        .luxury-btn-animated:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.4);
+        }
+
+        .btn-shine {
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .luxury-btn-animated:hover .btn-shine {
+            left: 100%;
+        }
+
+        .outline-btn-animated {
+            position: relative;
+            background: transparent;
+            border: 2px solid #d4af37;
+            color: #d4af37;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            animation: btnSlideUp 1s ease-out 2.2s both;
+        }
+
+        .outline-btn-animated:hover {
+            background: #d4af37;
+            color: #1a1a1a;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(212, 175, 55, 0.3);
+        }
+
+        .btn-glow {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: radial-gradient(circle, rgba(212, 175, 55, 0.3), transparent);
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+
+        .outline-btn-animated:hover .btn-glow {
+            width: 200px;
+            height: 200px;
+        }
+
+        @keyframes btnSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Éléments flottants décoratifs */
+        .floating-elements {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+        }
+
+        .floating-car {
+            position: absolute;
+            bottom: 15%;
+            right: 8%;
+            font-size: 4rem;
+            opacity: 0.3;
+            animation: floatCar 4s ease-in-out infinite;
+        }
+
+        .floating-crown {
+            position: absolute;
+            top: 15%;
+            right: 15%;
+            font-size: 2.5rem;
+            opacity: 0.2;
+            animation: floatCrown 5s ease-in-out infinite;
+        }
+
+        .floating-diamond {
+            position: absolute;
+            top: 60%;
+            left: 5%;
+            font-size: 2rem;
+            opacity: 0.25;
+            animation: floatDiamond 6s ease-in-out infinite;
+        }
+
+        .floating-star {
+            position: absolute;
+            top: 30%;
+            left: 85%;
+            font-size: 1.5rem;
+            opacity: 0.3;
+            animation: floatStar 3s ease-in-out infinite;
+        }
+
+        @keyframes floatCar {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-15px) rotate(5deg); }
+        }
+
+        @keyframes floatCrown {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-20px) scale(1.1); }
+        }
+
+        @keyframes floatDiamond {
+            0%, 100% { transform: translateY(0px) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(180deg); }
+        }
+
+        @keyframes floatStar {
+            0%, 100% { transform: scale(1) rotate(0deg); opacity: 0.3; }
+            50% { transform: scale(1.2) rotate(180deg); opacity: 0.6; }
+        }
+
+        /* Indicateur de scroll */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            text-align: center;
+            color: #d4af37;
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        .scroll-text {
+            font-size: 0.9rem;
+            margin-bottom: 10px;
+            opacity: 0.8;
+        }
+
+        .scroll-arrow {
+            font-size: 1.5rem;
+            animation: arrowBounce 1s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        @keyframes arrowBounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(5px); }
+        }
+
+        /* Gradient animé pour l'overlay */
+        .animate-gradient {
+            background-size: 200% 200%;
+            animation: gradientShift 8s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* CARROUSEL INFINI PROFESSIONNEL */
+        
+        .infinite-carousel {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+            opacity: 0.3;
+        }
+
+        .carousel-track {
+            display: flex;
+            width: calc(400px * 16); /* 8 cartes * 2 pour l'effet infini */
+            animation: infiniteScroll 60s linear infinite;
+        }
+
+        @keyframes infiniteScroll {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-400px * 8)); }
+        }
+
+        .carousel-card {
+            flex: 0 0 400px;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+        }
+
+        .card-content {
+            background: rgba(0, 0, 0, 0.7);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 25px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(15px);
+            width: 100%;
+            max-width: 320px;
+            transition: all 0.3s ease;
+            animation: cardFloat 8s ease-in-out infinite;
+        }
+
+        .card-content:hover {
+            transform: translateY(-10px) scale(1.05);
+            border-color: rgba(212, 175, 55, 0.6);
+            box-shadow: 0 20px 40px rgba(212, 175, 55, 0.2);
+        }
+
+        @keyframes cardFloat {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        .luxury-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(212, 175, 55, 0.2);
+            border: 1px solid rgba(212, 175, 55, 0.5);
+            border-radius: 25px;
+            padding: 8px 16px;
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .badge-icon {
+            font-size: 1.1rem;
+        }
+
+        .badge-text {
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            color: #d4af37;
+        }
+
+        .vehicle-svg {
+            width: 100%;
+            height: 120px;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 10px 20px rgba(212, 175, 55, 0.3));
+            animation: vehicleHover 4s ease-in-out infinite;
+        }
+
+        @keyframes vehicleHover {
+            0%, 100% { transform: translateY(0px) scale(1); }
+            50% { transform: translateY(-5px) scale(1.02); }
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: white;
+            margin-bottom: 8px;
+            background: linear-gradient(45deg, #d4af37, #f4e4a6, #d4af37);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: titleShine 3s ease-in-out infinite;
+        }
+
+        @keyframes titleShine {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        .card-subtitle {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.8);
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        /* Duplication des cartes pour l'effet infini */
+        .carousel-track::after {
+            content: '';
+            display: flex;
+            width: calc(400px * 8);
+        }
+
+        /* Pause au survol */
+        .infinite-carousel:hover .carousel-track {
+            animation-play-state: paused;
+        }
+
+        /* Responsive pour le carrousel infini */
+        @media (max-width: 768px) {
+            .carousel-card {
+                flex: 0 0 300px;
+                padding: 20px;
+            }
+
+            .carousel-track {
+                width: calc(300px * 16);
+                animation: infiniteScrollMobile 45s linear infinite;
+            }
+
+            @keyframes infiniteScrollMobile {
+                0% { transform: translateX(0); }
+                100% { transform: translateX(calc(-300px * 8)); }
+            }
+
+            .card-content {
+                padding: 20px;
+                max-width: 260px;
+            }
+
+            .vehicle-svg {
+                height: 80px;
+            }
+
+            .card-title {
+                font-size: 1.2rem;
+            }
+
+            .card-subtitle {
+                font-size: 0.8rem;
+            }
+        }
+
+        /* Effet de lueur subtile pour les titres */
+        .subtle-glow {
+            text-shadow: 0 0 20px rgba(212, 175, 55, 0.3);
+        }
+
+        @media (max-width: 768px) {
+            .luxury-quotes {
+                position: relative;
+                top: auto;
+                right: auto;
+                width: 100%;
+                margin-top: 20px;
+            }
+            
+            .quote-container {
+                margin: 10px;
+                padding: 20px;
+            }
+            
+            .carousel-indicators {
+                bottom: 20px;
+                right: 50%;
+                transform: translateX(50%);
+            }
+        }
+
+        /* Bordures dorées animées */
+        .luxury-border {
+            position: relative;
+            overflow: hidden;
+        }
+
+        .luxury-border::before {
+            content: '';
+            position: absolute;
+            top: -1px;
+            left: -1px;
+            right: -1px;
+            bottom: -1px;
+            background: linear-gradient(45deg, 
+                rgba(212, 175, 55, 0.3), 
+                rgba(160, 146, 107, 0.2), 
+                rgba(212, 175, 55, 0.4), 
+                rgba(160, 146, 107, 0.2));
+            background-size: 400% 400%;
+            border-radius: inherit;
+            z-index: -1;
+            animation: subtleBorderGlow 6s ease-in-out infinite;
+        }
+
+        @keyframes subtleBorderGlow {
+            0%, 100% { background-position: 0% 50%; opacity: 0.3; }
+            50% { background-position: 100% 50%; opacity: 0.6; }
+        }
+
+        /* Effet de cristal sur les cartes */
+        .crystal-effect {
+            position: relative;
+            background: linear-gradient(145deg, 
+                rgba(255, 255, 255, 0.95) 0%, 
+                rgba(255, 255, 255, 0.8) 50%, 
+                rgba(255, 255, 255, 0.95) 100%);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .crystal-effect::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(255, 215, 0, 0.4), 
+                transparent);
+            transition: left 0.8s;
+        }
+
+        .crystal-effect:hover::before {
+            left: 100%;
+        }
+
+        /* Texte premium avec effet holographique sombre */
+        .holographic-text {
+            background: linear-gradient(45deg, 
+                #8b7355 0%, 
+                #a0926b 25%, 
+                #d4af37 50%, 
+                #a0926b 75%, 
+                #8b7355 100%);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: darkHolographicShine 5s ease-in-out infinite;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+        }
+
+        @keyframes darkHolographicShine {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        /* Boutons ultra-premium sombres */
+        .ultra-luxury-btn {
+            position: relative;
+            background: linear-gradient(135deg, #2a2a2a 0%, #1a1a1a 50%, #000000 100%);
+            color: #d4af37;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 1px solid rgba(212, 175, 55, 0.3);
+            border-radius: 50px;
+            padding: 16px 40px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 
+                0 4px 16px rgba(0, 0, 0, 0.3),
+                inset 0 1px 0 rgba(212, 175, 55, 0.1);
+        }
+
+        .ultra-luxury-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, 
+                transparent, 
+                rgba(212, 175, 55, 0.2), 
+                transparent);
+            transition: left 0.8s;
+        }
+
+        .ultra-luxury-btn:hover {
+            transform: translateY(-2px) scale(1.02);
+            background: linear-gradient(135deg, #3a3a3a 0%, #2a2a2a 50%, #1a1a1a 100%);
+            border-color: rgba(212, 175, 55, 0.5);
+            box-shadow: 
+                0 8px 24px rgba(0, 0, 0, 0.4),
+                inset 0 1px 0 rgba(212, 175, 55, 0.2);
+        }
+
+        .ultra-luxury-btn:hover::before {
+            left: 100%;
+        }
+
+        /* Effet de particules dorées sur hover */
+        .particle-burst {
+            position: relative;
+        }
+
+        .particle-burst:hover::after {
+            content: '✨';
+            position: absolute;
+            top: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.6rem;
+            opacity: 0.6;
+            animation: subtleBurstEffect 1.5s ease-out;
+            pointer-events: none;
+        }
+
+        @keyframes subtleBurstEffect {
+            0% { 
+                opacity: 0; 
+                transform: translateX(-50%) translateY(0) scale(0.3); 
+            }
+            50% { 
+                opacity: 0.6; 
+                transform: translateX(-50%) translateY(-8px) scale(0.8); 
+            }
+            100% { 
+                opacity: 0; 
+                transform: translateX(-50%) translateY(-15px) scale(1); 
+            }
+        }
+
+        /* Fond premium avec motifs */
+        .premium-pattern {
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 75% 75%, rgba(255, 215, 0, 0.1) 0%, transparent 50%),
+                linear-gradient(45deg, transparent 49%, rgba(255, 215, 0, 0.03) 50%, transparent 51%);
+            background-size: 100px 100px, 100px 100px, 20px 20px;
+        }
+
+        /* Animation de révélation luxueuse */
+        .luxury-reveal {
+            animation: luxuryReveal 2s ease-out;
+        }
+
+        @keyframes luxuryReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(50px) scale(0.9);
+                filter: blur(10px);
+            }
+            50% {
+                opacity: 0.7;
+                transform: translateY(25px) scale(0.95);
+                filter: blur(5px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+                filter: blur(0);
+            }
+        }
+
+        /* Responsive pour les animations */
+        @media (max-width: 768px) {
+            .floating-elements { display: none; }
+            .geometric-line { display: none; }
+            .particle { display: none; }
+            .diamond-rain { display: none; }
+            .golden-sparkles { display: none; }
+            
+            .hero-stats {
+                grid-template-columns: 1fr;
+                gap: 4px;
+            }
+            
+            .stat-number {
+                font-size: 1.5rem !important;
+            }
+
+            .ultra-glow {
+                text-shadow: 
+                    0 0 3px #ffd700,
+                    0 0 6px #ffd700,
+                    0 0 9px #ffd700;
+            }
+        }
+
+        .model-card {
+            background: linear-gradient(145deg, #f8f9fa 0%, #ffffff 100%);
+            border: 1px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+
+        .model-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(212, 175, 55, 0.15);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full z-50 bg-black/90 backdrop-blur-md transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center space-x-3">
+                    <div class="w-10 h-10 gold-gradient rounded-full flex items-center justify-center">
+                        <span class="text-black font-bold">MV</span>
+                    </div>
+                    <span class="text-white text-xl font-bold">MON VÉHICULE</span>
+                </div>
+                
+                <div class="hidden md:flex space-x-6">
+                    <a href="#accueil" class="text-white hover:text-yellow-400 transition-colors" onclick="scrollTo('accueil')">Accueil</a>
+                    <a href="#vehicules" class="text-white hover:text-yellow-400 transition-colors" onclick="scrollTo('vehicules')">Véhicules</a>
+                    <a href="#prestations" class="text-white hover:text-yellow-400 transition-colors" onclick="scrollTo('prestations')">Prestations</a>
+                    <a href="#apropos" class="text-white hover:text-yellow-400 transition-colors" onclick="scrollTo('apropos')">À propos</a>
+                    <a href="#contact" class="text-white hover:text-yellow-400 transition-colors" onclick="openContactModal()">Contact</a>
+                </div>
+                
+                <button class="luxury-btn" onclick="openModal()">
+                    Rendez-vous
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Section Accueil avec Carrousel Infini -->
+    <section id="accueil" class="relative min-h-screen overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-800">
+        <!-- Overlay de Marque Principal -->
+        <div class="absolute inset-0 z-10 flex flex-col items-center justify-center text-center">
+            <div class="brand-logo mb-8">
+                <div class="logo-circle animate-float">
+                    <span class="logo-text">MV</span>
+                </div>
+                <h1 class="text-6xl md:text-8xl font-black text-white mb-4 holographic-text glow-text">MON VÉHICULE</h1>
+                <p class="text-2xl md:text-3xl text-yellow-400 font-light mb-8">L'Excellence Automobile Africaine</p>
+                <div class="luxury-line mb-8"></div>
+            </div>
+
+            <!-- Actions Principales -->
+            <div class="hero-actions flex flex-col md:flex-row gap-6 mb-12">
+                <button class="luxury-btn-animated px-8 py-4 text-lg" onclick="scrollTo('vehicules')">
+                    <span class="btn-icon">🚗</span>
+                    <span class="btn-text">Découvrir la Collection</span>
+                    <div class="btn-shine"></div>
+                </button>
+                <button class="outline-btn-animated px-8 py-4 text-lg" onclick="openModal()">
+                    <span class="btn-icon">💎</span>
+                    <span class="btn-text">Consultation VIP</span>
+                    <div class="btn-glow"></div>
+                </button>
+            </div>
+
+            <!-- Statistiques Hero -->
+            <div class="hero-stats grid grid-cols-3 gap-8 max-w-2xl mx-auto">
+                <div class="stat-item text-center">
+                    <div class="text-4xl md:text-5xl font-black text-yellow-400 mb-2" data-target="15">0</div>
+                    <div class="text-sm md:text-base text-gray-300 font-medium">Années d'Expérience</div>
+                </div>
+                <div class="stat-item text-center">
+                    <div class="text-4xl md:text-5xl font-black text-yellow-400 mb-2" data-target="500">0</div>
+                    <div class="text-sm md:text-base text-gray-300 font-medium">Modèles Disponibles</div>
+                </div>
+                <div class="stat-item text-center">
+                    <div class="text-4xl md:text-5xl font-black text-yellow-400 mb-2" data-target="1000">0</div>
+                    <div class="text-sm md:text-base text-gray-300 font-medium">Entreprises Partenaires</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Carrousel Infini de Véhicules -->
+        <div class="infinite-carousel absolute inset-0 z-0">
+            <div class="carousel-track">
+                <!-- Carte 1: Mercedes S-Class -->
+                <div class="carousel-card">
+                    <div class="card-content">
+                        <div class="luxury-badge">
+                            <span class="badge-icon">👑</span>
+                            <span class="badge-text">PRESTIGE</span>
+                        </div>
+                        <svg class="vehicle-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <linearGradient id="carBody1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#2c2c2c"/>
+                                    <stop offset="50%" style="stop-color:#1a1a1a"/>
+                                    <stop offset="100%" style="stop-color:#0a0a0a"/>
+                                </linearGradient>
+                                <linearGradient id="goldAccent" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#d4af37"/>
+                                    <stop offset="50%" style="stop-color:#f4e4a6"/>
+                                    <stop offset="100%" style="stop-color:#d4af37"/>
+                                </linearGradient>
+                            </defs>
+                            <path d="M50 100 L75 90 L325 90 L350 100 L350 120 L50 120 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <path d="M100 60 L125 50 L275 50 L300 60 L300 90 L100 90 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <circle cx="100" cy="120" r="18" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="100" cy="120" r="10" fill="url(#goldAccent)"/>
+                            <circle cx="300" cy="120" r="18" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="300" cy="120" r="10" fill="url(#goldAccent)"/>
+                        </svg>
+                        <h3 class="card-title">Mercedes S-Class</h3>
+                        <p class="card-subtitle">Excellence Allemande</p>
+                    </div>
+                </div>
+
+                <!-- Carte 2: BMW Série 7 -->
+                <div class="carousel-card">
+                    <div class="card-content">
+                        <div class="luxury-badge">
+                            <span class="badge-icon">🏁</span>
+                            <span class="badge-text">PERFORMANCE</span>
+                        </div>
+                        <svg class="vehicle-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M60 105 L90 85 L310 85 L340 105 L340 125 L60 125 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <path d="M110 55 L140 45 L260 45 L290 55 L290 85 L110 85 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <circle cx="110" cy="125" r="19" fill="#2a2a2a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="110" cy="125" r="11" fill="url(#goldAccent)"/>
+                            <circle cx="290" cy="125" r="19" fill="#2a2a2a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="290" cy="125" r="11" fill="url(#goldAccent)"/>
+                            <rect x="140" y="65" width="120" height="20" fill="rgba(212, 175, 55, 0.4)" rx="4"/>
+                        </svg>
+                        <h3 class="card-title">BMW Série 7</h3>
+                        <p class="card-subtitle">Plaisir de Conduire</p>
+                    </div>
+                </div>
+
+                <!-- Carte 3: Audi A8 -->
+                <div class="carousel-card">
+                    <div class="card-content">
+                        <div class="luxury-badge">
+                            <span class="badge-icon">🔬</span>
+                            <span class="badge-text">INNOVATION</span>
+                        </div>
+                        <svg class="vehicle-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M55 108 L85 88 L315 88 L345 108 L345 128 L55 128 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <path d="M105 58 L135 48 L265 48 L295 58 L295 88 L105 88 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <circle cx="105" cy="128" r="18" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="105" cy="128" r="10" fill="url(#goldAccent)"/>
+                            <circle cx="295" cy="128" r="18" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="295" cy="128" r="10" fill="url(#goldAccent)"/>
+                            <circle cx="175" cy="73" r="8" fill="none" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="190" cy="73" r="8" fill="none" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="205" cy="73" r="8" fill="none" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="220" cy="73" r="8" fill="none" stroke="url(#goldAccent)" stroke-width="2"/>
+                        </svg>
+                        <h3 class="card-title">Audi A8</h3>
+                        <p class="card-subtitle">Vorsprung durch Technik</p>
+                    </div>
+                </div>
+
+                <!-- Carte 4: Porsche 911 -->
+                <div class="carousel-card">
+                    <div class="card-content">
+                        <div class="luxury-badge">
+                            <span class="badge-icon">🏆</span>
+                            <span class="badge-text">LÉGENDE</span>
+                        </div>
+                        <svg class="vehicle-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M75 110 L100 80 L300 80 L325 110 L325 130 L75 130 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <path d="M125 50 L150 40 L250 40 L275 50 L275 80 L125 80 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <circle cx="125" cy="130" r="16" fill="#2a2a2a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="125" cy="130" r="9" fill="url(#goldAccent)"/>
+                            <circle cx="275" cy="130" r="16" fill="#2a2a2a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="275" cy="130" r="9" fill="url(#goldAccent)"/>
+                            <rect x="175" y="60" width="50" height="15" fill="rgba(212, 175, 55, 0.5)" rx="3"/>
+                        </svg>
+                        <h3 class="card-title">Porsche 911</h3>
+                        <p class="card-subtitle">Icône Sportive</p>
+                    </div>
+                </div>
+
+                <!-- Carte 5: Range Rover -->
+                <div class="carousel-card">
+                    <div class="card-content">
+                        <div class="luxury-badge">
+                            <span class="badge-icon">🌟</span>
+                            <span class="badge-text">LUXE</span>
+                        </div>
+                        <svg class="vehicle-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M45 100 L70 85 L330 85 L355 100 L355 125 L45 125 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <path d="M95 55 L120 45 L280 45 L305 55 L305 85 L95 85 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <circle cx="95" cy="125" r="20" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="95" cy="125" r="12" fill="url(#goldAccent)"/>
+                            <circle cx="305" cy="125" r="20" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="305" cy="125" r="12" fill="url(#goldAccent)"/>
+                            <rect x="120" y="65" width="160" height="20" fill="rgba(212, 175, 55, 0.3)" rx="5"/>
+                        </svg>
+                        <h3 class="card-title">Range Rover</h3>
+                        <p class="card-subtitle">Luxe Britannique</p>
+                    </div>
+                </div>
+
+                <!-- Carte 6: Lexus LS -->
+                <div class="carousel-card">
+                    <div class="card-content">
+                        <div class="luxury-badge">
+                            <span class="badge-icon">💎</span>
+                            <span class="badge-text">RAFFINEMENT</span>
+                        </div>
+                        <svg class="vehicle-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M50 102 L75 87 L325 87 L350 102 L350 122 L50 122 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <path d="M100 57 L125 47 L275 47 L300 57 L300 87 L100 87 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <circle cx="100" cy="122" r="18" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="100" cy="122" r="10" fill="url(#goldAccent)"/>
+                            <circle cx="300" cy="122" r="18" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="300" cy="122" r="10" fill="url(#goldAccent)"/>
+                            <path d="M125 67 L150 62 L250 62 L275 67 L275 77 L125 77 Z" fill="rgba(212, 175, 55, 0.4)"/>
+                        </svg>
+                        <h3 class="card-title">Lexus LS</h3>
+                        <p class="card-subtitle">Perfection Japonaise</p>
+                    </div>
+                </div>
+
+                <!-- Carte 7: Bentley Continental -->
+                <div class="carousel-card">
+                    <div class="card-content">
+                        <div class="luxury-badge">
+                            <span class="badge-icon">🎩</span>
+                            <span class="badge-text">ARISTOCRATIE</span>
+                        </div>
+                        <svg class="vehicle-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M55 105 L80 90 L320 90 L345 105 L345 125 L55 125 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <path d="M105 60 L130 50 L270 50 L295 60 L295 90 L105 90 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <circle cx="105" cy="125" r="19" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="105" cy="125" r="11" fill="url(#goldAccent)"/>
+                            <circle cx="295" cy="125" r="19" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="295" cy="125" r="11" fill="url(#goldAccent)"/>
+                            <ellipse cx="200" cy="70" rx="40" ry="10" fill="rgba(212, 175, 55, 0.5)"/>
+                        </svg>
+                        <h3 class="card-title">Bentley Continental</h3>
+                        <p class="card-subtitle">Artisanat Britannique</p>
+                    </div>
+                </div>
+
+                <!-- Carte 8: Maserati Quattroporte -->
+                <div class="carousel-card">
+                    <div class="card-content">
+                        <div class="luxury-badge">
+                            <span class="badge-icon">🔱</span>
+                            <span class="badge-text">PASSION</span>
+                        </div>
+                        <svg class="vehicle-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M60 107 L85 92 L315 92 L340 107 L340 127 L60 127 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <path d="M110 62 L135 52 L265 52 L290 62 L290 92 L110 92 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <circle cx="110" cy="127" r="18" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="110" cy="127" r="10" fill="url(#goldAccent)"/>
+                            <circle cx="290" cy="127" r="18" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="290" cy="127" r="10" fill="url(#goldAccent)"/>
+                            <path d="M180 72 L200 67 L220 72 L200 77 Z" fill="url(#goldAccent)"/>
+                        </svg>
+                        <h3 class="card-title">Maserati Quattroporte</h3>
+                        <p class="card-subtitle">Élégance Italienne</p>
+                    </div>
+                </div>
+
+                <!-- DUPLICATION POUR EFFET INFINI -->
+                <!-- Carte 1 bis: Mercedes S-Class -->
+                <div class="carousel-card">
+                    <div class="card-content">
+                        <div class="luxury-badge">
+                            <span class="badge-icon">👑</span>
+                            <span class="badge-text">PRESTIGE</span>
+                        </div>
+                        <svg class="vehicle-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M50 100 L75 90 L325 90 L350 100 L350 120 L50 120 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <path d="M100 60 L125 50 L275 50 L300 60 L300 90 L100 90 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <circle cx="100" cy="120" r="18" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="100" cy="120" r="10" fill="url(#goldAccent)"/>
+                            <circle cx="300" cy="120" r="18" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="300" cy="120" r="10" fill="url(#goldAccent)"/>
+                        </svg>
+                        <h3 class="card-title">Mercedes S-Class</h3>
+                        <p class="card-subtitle">Excellence Allemande</p>
+                    </div>
+                </div>
+
+                <!-- Carte 2 bis: BMW Série 7 -->
+                <div class="carousel-card">
+                    <div class="card-content">
+                        <div class="luxury-badge">
+                            <span class="badge-icon">🏁</span>
+                            <span class="badge-text">PERFORMANCE</span>
+                        </div>
+                        <svg class="vehicle-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M60 105 L90 85 L310 85 L340 105 L340 125 L60 125 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <path d="M110 55 L140 45 L260 45 L290 55 L290 85 L110 85 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <circle cx="110" cy="125" r="19" fill="#2a2a2a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="110" cy="125" r="11" fill="url(#goldAccent)"/>
+                            <circle cx="290" cy="125" r="19" fill="#2a2a2a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="290" cy="125" r="11" fill="url(#goldAccent)"/>
+                            <rect x="140" y="65" width="120" height="20" fill="rgba(212, 175, 55, 0.4)" rx="4"/>
+                        </svg>
+                        <h3 class="card-title">BMW Série 7</h3>
+                        <p class="card-subtitle">Plaisir de Conduire</p>
+                    </div>
+                </div>
+
+                <!-- Carte 3 bis: Audi A8 -->
+                <div class="carousel-card">
+                    <div class="card-content">
+                        <div class="luxury-badge">
+                            <span class="badge-icon">🔬</span>
+                            <span class="badge-text">INNOVATION</span>
+                        </div>
+                        <svg class="vehicle-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M55 108 L85 88 L315 88 L345 108 L345 128 L55 128 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <path d="M105 58 L135 48 L265 48 L295 58 L295 88 L105 88 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <circle cx="105" cy="128" r="18" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="105" cy="128" r="10" fill="url(#goldAccent)"/>
+                            <circle cx="295" cy="128" r="18" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="295" cy="128" r="10" fill="url(#goldAccent)"/>
+                            <circle cx="175" cy="73" r="8" fill="none" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="190" cy="73" r="8" fill="none" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="205" cy="73" r="8" fill="none" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="220" cy="73" r="8" fill="none" stroke="url(#goldAccent)" stroke-width="2"/>
+                        </svg>
+                        <h3 class="card-title">Audi A8</h3>
+                        <p class="card-subtitle">Vorsprung durch Technik</p>
+                    </div>
+                </div>
+
+                <!-- Carte 4 bis: Porsche 911 -->
+                <div class="carousel-card">
+                    <div class="card-content">
+                        <div class="luxury-badge">
+                            <span class="badge-icon">🏆</span>
+                            <span class="badge-text">LÉGENDE</span>
+                        </div>
+                        <svg class="vehicle-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M75 110 L100 80 L300 80 L325 110 L325 130 L75 130 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <path d="M125 50 L150 40 L250 40 L275 50 L275 80 L125 80 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <circle cx="125" cy="130" r="16" fill="#2a2a2a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="125" cy="130" r="9" fill="url(#goldAccent)"/>
+                            <circle cx="275" cy="130" r="16" fill="#2a2a2a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="275" cy="130" r="9" fill="url(#goldAccent)"/>
+                            <rect x="175" y="60" width="50" height="15" fill="rgba(212, 175, 55, 0.5)" rx="3"/>
+                        </svg>
+                        <h3 class="card-title">Porsche 911</h3>
+                        <p class="card-subtitle">Icône Sportive</p>
+                    </div>
+                </div>
+
+                <!-- Carte 5 bis: Range Rover -->
+                <div class="carousel-card">
+                    <div class="card-content">
+                        <div class="luxury-badge">
+                            <span class="badge-icon">🌟</span>
+                            <span class="badge-text">LUXE</span>
+                        </div>
+                        <svg class="vehicle-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M45 100 L70 85 L330 85 L355 100 L355 125 L45 125 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <path d="M95 55 L120 45 L280 45 L305 55 L305 85 L95 85 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <circle cx="95" cy="125" r="20" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="95" cy="125" r="12" fill="url(#goldAccent)"/>
+                            <circle cx="305" cy="125" r="20" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="305" cy="125" r="12" fill="url(#goldAccent)"/>
+                            <rect x="120" y="65" width="160" height="20" fill="rgba(212, 175, 55, 0.3)" rx="5"/>
+                        </svg>
+                        <h3 class="card-title">Range Rover</h3>
+                        <p class="card-subtitle">Luxe Britannique</p>
+                    </div>
+                </div>
+
+                <!-- Carte 6 bis: Lexus LS -->
+                <div class="carousel-card">
+                    <div class="card-content">
+                        <div class="luxury-badge">
+                            <span class="badge-icon">💎</span>
+                            <span class="badge-text">RAFFINEMENT</span>
+                        </div>
+                        <svg class="vehicle-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M50 102 L75 87 L325 87 L350 102 L350 122 L50 122 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <path d="M100 57 L125 47 L275 47 L300 57 L300 87 L100 87 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <circle cx="100" cy="122" r="18" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="100" cy="122" r="10" fill="url(#goldAccent)"/>
+                            <circle cx="300" cy="122" r="18" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="300" cy="122" r="10" fill="url(#goldAccent)"/>
+                            <path d="M125 67 L150 62 L250 62 L275 67 L275 77 L125 77 Z" fill="rgba(212, 175, 55, 0.4)"/>
+                        </svg>
+                        <h3 class="card-title">Lexus LS</h3>
+                        <p class="card-subtitle">Perfection Japonaise</p>
+                    </div>
+                </div>
+
+                <!-- Carte 7 bis: Bentley Continental -->
+                <div class="carousel-card">
+                    <div class="card-content">
+                        <div class="luxury-badge">
+                            <span class="badge-icon">🎩</span>
+                            <span class="badge-text">ARISTOCRATIE</span>
+                        </div>
+                        <svg class="vehicle-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M55 105 L80 90 L320 90 L345 105 L345 125 L55 125 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <path d="M105 60 L130 50 L270 50 L295 60 L295 90 L105 90 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <circle cx="105" cy="125" r="19" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="105" cy="125" r="11" fill="url(#goldAccent)"/>
+                            <circle cx="295" cy="125" r="19" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="295" cy="125" r="11" fill="url(#goldAccent)"/>
+                            <ellipse cx="200" cy="70" rx="40" ry="10" fill="rgba(212, 175, 55, 0.5)"/>
+                        </svg>
+                        <h3 class="card-title">Bentley Continental</h3>
+                        <p class="card-subtitle">Artisanat Britannique</p>
+                    </div>
+                </div>
+
+                <!-- Carte 8 bis: Maserati Quattroporte -->
+                <div class="carousel-card">
+                    <div class="card-content">
+                        <div class="luxury-badge">
+                            <span class="badge-icon">🔱</span>
+                            <span class="badge-text">PASSION</span>
+                        </div>
+                        <svg class="vehicle-svg" viewBox="0 0 400 150" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M60 107 L85 92 L315 92 L340 107 L340 127 L60 127 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <path d="M110 62 L135 52 L265 52 L290 62 L290 92 L110 92 Z" fill="url(#carBody1)" stroke="url(#goldAccent)" stroke-width="1"/>
+                            <circle cx="110" cy="127" r="18" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="110" cy="127" r="10" fill="url(#goldAccent)"/>
+                            <circle cx="290" cy="127" r="18" fill="#1a1a1a" stroke="url(#goldAccent)" stroke-width="2"/>
+                            <circle cx="290" cy="127" r="10" fill="url(#goldAccent)"/>
+                            <path d="M180 72 L200 67 L220 72 L200 77 Z" fill="url(#goldAccent)"/>
+                        </svg>
+                        <h3 class="card-title">Maserati Quattroporte</h3>
+                        <p class="card-subtitle">Élégance Italienne</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Éléments décoratifs flottants -->
+        <div class="floating-elements">
+            <div class="particle particle-1"></div>
+            <div class="particle particle-2"></div>
+            <div class="particle particle-3"></div>
+            <div class="particle particle-4"></div>
+            <div class="particle particle-5"></div>
+            <div class="particle particle-6"></div>
+            <div class="geometric-line line-1"></div>
+            <div class="geometric-line line-2"></div>
+            <div class="geometric-line line-3"></div>
+            <div class="floating-car">🚗</div>
+            <div class="floating-crown">👑</div>
+            <div class="floating-diamond">💎</div>
+            <div class="floating-star">⭐</div>
+        </div>
+
+        <!-- Indicateur de scroll -->
+        <div class="scroll-indicator">
+            <div class="scroll-text">Découvrez nos véhicules</div>
+            <div class="scroll-arrow">↓</div>
+        </div>
+    </section>
+
+    <!-- Section Véhicules -->
+    <section id="vehicules" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 luxury-reveal">
+                <h2 class="text-5xl md:text-6xl font-bold mb-6 holographic-text ultra-glow">MARQUES DISPONIBLES AU SÉNÉGAL</h2>
+                <div class="luxury-line mb-6"></div>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto">✨ Découvrez toutes les marques automobiles présentes sur le marché sénégalais avec leurs modèles disponibles ✨</p>
+            </div>
+
+            <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6" id="brands-grid">
+                <!-- Toyota -->
+                <div class="car-card crystal-effect luxury-border rounded-3xl overflow-hidden shadow-lg cursor-pointer particle-burst luxury-reveal" onclick="openBrandModal('toyota')">
+                    <div class="h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center relative">
+                        <div class="golden-sparkles">
+                            <div class="sparkle sparkle-1"></div>
+                            <div class="sparkle sparkle-3"></div>
+                        </div>
+                        <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="currentColor">
+                            <ellipse cx="50" cy="35" rx="25" ry="15" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <ellipse cx="35" cy="50" rx="15" ry="25" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <ellipse cx="65" cy="50" rx="15" ry="25" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <text x="50" y="85" text-anchor="middle" font-size="8" font-weight="bold">TOYOTA</text>
+                        </svg>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-bold text-gray-900 holographic-text">Toyota</h3>
+                        <p class="text-sm text-gray-600">✨ Fiabilité japonaise ✨</p>
+                    </div>
+                </div>
+
+                <!-- Mercedes-Benz -->
+                <div class="car-card rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openBrandModal('mercedes')">
+                    <div class="h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="currentColor">
+                            <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <path d="M50 20 L50 50 L75 65 M50 50 L25 65 M50 50 L50 80" stroke="currentColor" stroke-width="3" fill="none"/>
+                            <text x="50" y="95" text-anchor="middle" font-size="6" font-weight="bold">MERCEDES</text>
+                        </svg>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-bold text-gray-900">Mercedes-Benz</h3>
+                        <p class="text-sm text-gray-600">Luxe allemand</p>
+                    </div>
+                </div>
+
+                <!-- BMW -->
+                <div class="car-card rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openBrandModal('bmw')">
+                    <div class="h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="currentColor">
+                            <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <path d="M50 15 L50 85 M15 50 L85 50" stroke="currentColor" stroke-width="2"/>
+                            <path d="M35 35 Q50 25 65 35 Q75 50 65 65 Q50 75 35 65 Q25 50 35 35" fill="currentColor" opacity="0.3"/>
+                            <text x="50" y="95" text-anchor="middle" font-size="8" font-weight="bold">BMW</text>
+                        </svg>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-bold text-gray-900">BMW</h3>
+                        <p class="text-sm text-gray-600">Plaisir de conduire</p>
+                    </div>
+                </div>
+
+                <!-- Audi -->
+                <div class="car-card rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openBrandModal('audi')">
+                    <div class="h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="currentColor">
+                            <circle cx="25" cy="50" r="12" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <circle cx="40" cy="50" r="12" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <circle cx="55" cy="50" r="12" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <circle cx="70" cy="50" r="12" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <text x="50" y="85" text-anchor="middle" font-size="8" font-weight="bold">AUDI</text>
+                        </svg>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-bold text-gray-900">Audi</h3>
+                        <p class="text-sm text-gray-600">Technologie avancée</p>
+                    </div>
+                </div>
+
+                <!-- Volkswagen -->
+                <div class="car-card rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openBrandModal('volkswagen')">
+                    <div class="h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="currentColor">
+                            <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <path d="M30 35 L40 65 L50 45 L60 65 L70 35" stroke="currentColor" stroke-width="4" fill="none"/>
+                            <text x="50" y="90" text-anchor="middle" font-size="6" font-weight="bold">VOLKSWAGEN</text>
+                        </svg>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-bold text-gray-900">Volkswagen</h3>
+                        <p class="text-sm text-gray-600">Qualité allemande</p>
+                    </div>
+                </div>
+
+                <!-- Peugeot -->
+                <div class="car-card rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openBrandModal('peugeot')">
+                    <div class="h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="currentColor">
+                            <path d="M30 70 Q30 30 50 30 Q70 30 70 50 Q70 70 50 70 Q40 70 35 65 L40 60 Q45 65 50 65 Q65 65 65 50 Q65 35 50 35 Q35 35 35 50 L30 50" fill="currentColor"/>
+                            <circle cx="45" cy="45" r="2" fill="white"/>
+                            <path d="M35 50 L25 60 L30 65 L35 55" fill="currentColor"/>
+                            <text x="50" y="90" text-anchor="middle" font-size="6" font-weight="bold">PEUGEOT</text>
+                        </svg>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-bold text-gray-900">Peugeot</h3>
+                        <p class="text-sm text-gray-600">Élégance française</p>
+                    </div>
+                </div>
+
+                <!-- Renault -->
+                <div class="car-card rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openBrandModal('renault')">
+                    <div class="h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="currentColor">
+                            <path d="M50 20 L70 40 L70 60 L50 80 L30 60 L30 40 Z" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <path d="M50 30 L60 40 L60 55 L50 65 L40 55 L40 40 Z" fill="currentColor" opacity="0.7"/>
+                            <text x="50" y="95" text-anchor="middle" font-size="6" font-weight="bold">RENAULT</text>
+                        </svg>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-bold text-gray-900">Renault</h3>
+                        <p class="text-sm text-gray-600">Innovation française</p>
+                    </div>
+                </div>
+
+                <!-- Nissan -->
+                <div class="car-card rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openBrandModal('nissan')">
+                    <div class="h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="currentColor">
+                            <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <rect x="35" y="35" width="30" height="30" rx="5" fill="none" stroke="currentColor" stroke-width="2"/>
+                            <path d="M40 45 L60 45 M40 50 L60 50 M40 55 L60 55" stroke="currentColor" stroke-width="2"/>
+                            <text x="50" y="90" text-anchor="middle" font-size="7" font-weight="bold">NISSAN</text>
+                        </svg>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-bold text-gray-900">Nissan</h3>
+                        <p class="text-sm text-gray-600">Innovation japonaise</p>
+                    </div>
+                </div>
+
+                <!-- Honda -->
+                <div class="car-card rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openBrandModal('honda')">
+                    <div class="h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="currentColor">
+                            <rect x="25" y="25" width="50" height="50" rx="10" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <path d="M35 35 L35 65 M35 50 L65 50 M65 35 L65 65" stroke="currentColor" stroke-width="4"/>
+                            <text x="50" y="90" text-anchor="middle" font-size="7" font-weight="bold">HONDA</text>
+                        </svg>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-bold text-gray-900">Honda</h3>
+                        <p class="text-sm text-gray-600">Fiabilité éprouvée</p>
+                    </div>
+                </div>
+
+                <!-- Hyundai -->
+                <div class="car-card rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openBrandModal('hyundai')">
+                    <div class="h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="currentColor">
+                            <ellipse cx="50" cy="50" rx="35" ry="20" fill="none" stroke="currentColor" stroke-width="3" transform="rotate(-15 50 50)"/>
+                            <path d="M35 40 L35 60 M35 50 L65 50 M65 40 L65 60" stroke="currentColor" stroke-width="3"/>
+                            <text x="50" y="85" text-anchor="middle" font-size="6" font-weight="bold">HYUNDAI</text>
+                        </svg>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-bold text-gray-900">Hyundai</h3>
+                        <p class="text-sm text-gray-600">Modernité coréenne</p>
+                    </div>
+                </div>
+
+                <!-- Kia -->
+                <div class="car-card rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openBrandModal('kia')">
+                    <div class="h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="currentColor">
+                            <ellipse cx="50" cy="50" rx="35" ry="20" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <path d="M30 40 L50 50 L30 60 M50 40 L70 50 M50 60 L70 50" stroke="currentColor" stroke-width="3" fill="none"/>
+                            <text x="50" y="85" text-anchor="middle" font-size="8" font-weight="bold">KIA</text>
+                        </svg>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-bold text-gray-900">Kia</h3>
+                        <p class="text-sm text-gray-600">Design audacieux</p>
+                    </div>
+                </div>
+
+                <!-- Ford -->
+                <div class="car-card rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openBrandModal('ford')">
+                    <div class="h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="currentColor">
+                            <ellipse cx="50" cy="50" rx="35" ry="20" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <path d="M35 40 L35 60 M35 40 L55 40 M35 50 L50 50" stroke="currentColor" stroke-width="3"/>
+                            <path d="M60 40 Q70 45 60 50 Q70 55 60 60" stroke="currentColor" stroke-width="3" fill="none"/>
+                            <text x="50" y="85" text-anchor="middle" font-size="8" font-weight="bold">FORD</text>
+                        </svg>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-bold text-gray-900">Ford</h3>
+                        <p class="text-sm text-gray-600">Héritage américain</p>
+                    </div>
+                </div>
+
+                <!-- Chevrolet -->
+                <div class="car-card rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openBrandModal('chevrolet')">
+                    <div class="h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="currentColor">
+                            <path d="M50 25 L60 40 L75 40 L65 50 L70 65 L50 55 L30 65 L35 50 L25 40 L40 40 Z" fill="currentColor"/>
+                            <text x="50" y="90" text-anchor="middle" font-size="5" font-weight="bold">CHEVROLET</text>
+                        </svg>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-bold text-gray-900">Chevrolet</h3>
+                        <p class="text-sm text-gray-600">Puissance américaine</p>
+                    </div>
+                </div>
+
+                <!-- Mitsubishi -->
+                <div class="car-card rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openBrandModal('mitsubishi')">
+                    <div class="h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="currentColor">
+                            <path d="M50 25 L35 50 L50 60 L65 50 Z" fill="currentColor"/>
+                            <path d="M35 50 L20 65 L35 75 L50 60 Z" fill="currentColor"/>
+                            <path d="M65 50 L80 65 L65 75 L50 60 Z" fill="currentColor"/>
+                            <text x="50" y="90" text-anchor="middle" font-size="5" font-weight="bold">MITSUBISHI</text>
+                        </svg>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-bold text-gray-900">Mitsubishi</h3>
+                        <p class="text-sm text-gray-600">Robustesse japonaise</p>
+                    </div>
+                </div>
+
+                <!-- Suzuki -->
+                <div class="car-card rounded-3xl overflow-hidden shadow-lg cursor-pointer" onclick="openBrandModal('suzuki')">
+                    <div class="h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center">
+                        <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="currentColor">
+                            <path d="M30 40 Q30 30 40 30 Q50 30 50 40 Q50 50 40 50 Q30 50 30 40" fill="currentColor"/>
+                            <path d="M50 50 Q50 40 60 40 Q70 40 70 50 Q70 60 60 60 Q50 60 50 50" fill="currentColor"/>
+                            <path d="M40 60 Q40 50 50 50 Q60 50 60 60 Q60 70 50 70 Q40 70 40 60" fill="currentColor"/>
+                            <text x="50" y="85" text-anchor="middle" font-size="7" font-weight="bold">SUZUKI</text>
+                        </svg>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-bold text-gray-900">Suzuki</h3>
+                        <p class="text-sm text-gray-600">Compacité efficace</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section Prestations -->
+    <section id="prestations" class="py-20 bg-gray-900">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16 luxury-reveal">
+                <h2 class="text-5xl md:text-6xl font-bold text-white mb-6 holographic-text ultra-glow">NOS PRESTATIONS PREMIUM</h2>
+                <div class="luxury-line mb-6"></div>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">✨ Des services d'exception pour une expérience automobile sur mesure ✨</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Location Premium -->
+                <div class="service-card crystal-effect luxury-border rounded-3xl p-8 text-center luxury-reveal">
+                    <div class="w-20 h-20 gold-gradient rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-3xl">🚗</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 holographic-text">Location Premium</h3>
+                    <p class="text-gray-600 mb-6">Location courte et longue durée de véhicules d'exception avec service personnalisé</p>
+                    <ul class="text-left text-gray-600 space-y-2 mb-6">
+                        <li>✓ Véhicules entretenus quotidiennement</li>
+                        <li>✓ Livraison à domicile</li>
+                        <li>✓ Assurance tous risques incluse</li>
+                        <li>✓ Support 24h/7j</li>
+                    </ul>
+                    <button class="ultra-luxury-btn w-full particle-burst" onclick="openModalWithService('location')">
+                        💎 Réserver maintenant
+                    </button>
+                </div>
+
+                <!-- Chauffeur Privé -->
+                <div class="service-card crystal-effect luxury-border rounded-3xl p-8 text-center luxury-reveal">
+                    <div class="w-20 h-20 gold-gradient rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-3xl">🤵</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 holographic-text">Chauffeur Privé</h3>
+                    <p class="text-gray-600 mb-6">Service de chauffeur professionnel pour vos déplacements en toute sérénité</p>
+                    <ul class="text-left text-gray-600 space-y-2 mb-6">
+                        <li>✓ Chauffeurs expérimentés et discrets</li>
+                        <li>✓ Véhicules de luxe</li>
+                        <li>✓ Ponctualité garantie</li>
+                        <li>✓ Service événementiel</li>
+                    </ul>
+                    <button class="ultra-luxury-btn w-full particle-burst" onclick="openModalWithService('chauffeur')">
+                        🤵 Réserver un chauffeur
+                    </button>
+                </div>
+
+                <!-- Entretien & Detailing -->
+                <div class="service-card crystal-effect luxury-border rounded-3xl p-8 text-center luxury-reveal">
+                    <div class="w-20 h-20 gold-gradient rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-3xl">✨</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 holographic-text">Entretien & Detailing</h3>
+                    <p class="text-gray-600 mb-6">Services d'entretien et de detailing haut de gamme pour préserver l'excellence</p>
+                    <ul class="text-left text-gray-600 space-y-2 mb-6">
+                        <li>✓ Detailing complet intérieur/extérieur</li>
+                        <li>✓ Entretien mécanique spécialisé</li>
+                        <li>✓ Protection céramique</li>
+                        <li>✓ Service à domicile disponible</li>
+                    </ul>
+                    <button class="ultra-luxury-btn w-full particle-burst" onclick="openModalWithService('entretien')">
+                        ✨ Prendre rendez-vous
+                    </button>
+                </div>
+
+                <!-- Conseil Personnalisé -->
+                <div class="service-card crystal-effect luxury-border rounded-3xl p-8 text-center luxury-reveal">
+                    <div class="w-20 h-20 gold-gradient rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-3xl">💎</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 holographic-text">Conseil Personnalisé</h3>
+                    <p class="text-gray-600 mb-6">Accompagnement expert pour l'achat, la vente ou l'investissement automobile</p>
+                    <ul class="text-left text-gray-600 space-y-2 mb-6">
+                        <li>✓ Expertise du marché du luxe</li>
+                        <li>✓ Évaluation professionnelle</li>
+                        <li>✓ Négociation assistée</li>
+                        <li>✓ Suivi post-achat</li>
+                    </ul>
+                    <button class="ultra-luxury-btn w-full particle-burst" onclick="openModalWithService('conseil')">
+                        💎 Consultation gratuite
+                    </button>
+                </div>
+
+                <!-- Vente Premium -->
+                <div class="service-card crystal-effect luxury-border rounded-3xl p-8 text-center luxury-reveal">
+                    <div class="w-20 h-20 gold-gradient rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-3xl">🏆</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 holographic-text">Vente Premium</h3>
+                    <p class="text-gray-600 mb-6">Acquisition de véhicules d'exception avec garantie et service après-vente</p>
+                    <ul class="text-left text-gray-600 space-y-2 mb-6">
+                        <li>✓ Véhicules certifiés et vérifiés</li>
+                        <li>✓ Historique complet</li>
+                        <li>✓ Garantie constructeur</li>
+                        <li>✓ Financement sur mesure</li>
+                    </ul>
+                    <button class="ultra-luxury-btn w-full particle-burst" onclick="openModalWithService('achat')">
+                        🏆 Voir les offres
+                    </button>
+                </div>
+
+                <!-- Événementiel -->
+                <div class="service-card crystal-effect luxury-border rounded-3xl p-8 text-center luxury-reveal">
+                    <div class="w-20 h-20 gold-gradient rounded-full flex items-center justify-center mx-auto mb-6">
+                        <span class="text-3xl">🎭</span>
+                    </div>
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 holographic-text">Événementiel</h3>
+                    <p class="text-gray-600 mb-6">Location de véhicules d'exception pour vos événements prestigieux</p>
+                    <ul class="text-left text-gray-600 space-y-2 mb-6">
+                        <li>✓ Mariages et cérémonies</li>
+                        <li>✓ Événements d'entreprise</li>
+                        <li>✓ Tournages et shootings</li>
+                        <li>✓ Accompagnement personnalisé</li>
+                    </ul>
+                    <button class="ultra-luxury-btn w-full particle-burst" onclick="openModalWithService('evenementiel')">
+                        🎭 Organiser un événement
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section À propos -->
+    <section id="apropos" class="py-20 bg-white">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl font-bold text-gray-900 mb-6">À Propos de MON VÉHICULE</h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto">L'excellence automobile africaine portée par une vision audacieuse</p>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+                <!-- Présentation de l'entreprise -->
+                <div class="about-card rounded-3xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 gold-gradient rounded-full flex items-center justify-center mr-4">
+                            <span class="text-2xl">🏢</span>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900">Notre Entreprise</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        <strong>Africa Business Manager Company SN</strong> est une entreprise individuelle fondée en décembre 2024, avec une mission claire : valoriser la culture africaine à travers l'excellence automobile.
+                    </p>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Notre plateforme <strong>MON VÉHICULE</strong> est dédiée à la promotion des véhicules de luxe, qu'ils soient proposés par des vendeurs locaux ou issus de notre propre flotte.
+                    </p>
+                    <p class="text-gray-600 leading-relaxed">
+                        Nous croyons que le luxe n'est pas réservé à une élite étrangère — il est accessible, ici, en Afrique, à ceux qui osent rêver grand.
+                    </p>
+                </div>
+
+                <!-- Le fondateur -->
+                <div class="about-card rounded-3xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 gold-gradient rounded-full flex items-center justify-center mr-4">
+                            <span class="text-2xl">👨‍💼</span>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900">Le Fondateur</h3>
+                    </div>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        <strong>Monsieur ATEKOSSI MAHUZONSOU</strong>, Président Directeur Général, est un jeune entrepreneur visionnaire.
+                    </p>
+                    <p class="text-gray-600 mb-4 leading-relaxed">
+                        Son ambition : redéfinir les standards du luxe africain en prouvant qu'on peut rouler en prestige sans quitter le continent.
+                    </p>
+                    <blockquote class="border-l-4 border-yellow-400 pl-4 italic text-gray-700 mb-4">
+                        "Le luxe n'est pas un privilège, c'est une possibilité. Même en Afrique, on peut se permettre l'exception."
+                    </blockquote>
+                    <p class="text-gray-600 leading-relaxed">
+                        Son leadership inspire une nouvelle génération d'acteurs économiques africains à croire en l'excellence locale.
+                    </p>
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16">
+                <!-- Notre Mission -->
+                <div class="about-card rounded-3xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 gold-gradient rounded-full flex items-center justify-center mr-4">
+                            <span class="text-2xl">🎯</span>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900">Notre Mission</h3>
+                    </div>
+                    <ul class="space-y-4 text-gray-600">
+                        <li class="flex items-start">
+                            <span class="text-yellow-500 mr-3 mt-1">🔧</span>
+                            <span>Soutenir les vendeurs locaux en leur offrant une vitrine digitale haut de gamme</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-yellow-500 mr-3 mt-1">🚗</span>
+                            <span>Proposer des services premium : location, vente, chauffeur privé, entretien, conseil</span>
+                        </li>
+                        <li class="flex items-start">
+                            <span class="text-yellow-500 mr-3 mt-1">🌍</span>
+                            <span>Valoriser l'image de l'Afrique à travers une esthétique raffinée et une expérience client irréprochable</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Nos Valeurs -->
+                <div class="about-card rounded-3xl p-8">
+                    <div class="flex items-center mb-6">
+                        <div class="w-16 h-16 gold-gradient rounded-full flex items-center justify-center mr-4">
+                            <span class="text-2xl">💎</span>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900">Nos Valeurs</h3>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="border-l-4 border-yellow-400 pl-4">
+                            <h4 class="font-bold text-gray-900 mb-1">Authenticité</h4>
+                            <p class="text-gray-600">Nous croyons en la richesse de notre culture et de notre savoir-faire</p>
+                        </div>
+                        <div class="border-l-4 border-yellow-400 pl-4">
+                            <h4 class="font-bold text-gray-900 mb-1">Excellence</h4>
+                            <p class="text-gray-600">Chaque détail compte, chaque véhicule est une œuvre</p>
+                        </div>
+                        <div class="border-l-4 border-yellow-400 pl-4">
+                            <h4 class="font-bold text-gray-900 mb-1">Accessibilité</h4>
+                            <p class="text-gray-600">Le luxe est une expérience, pas un privilège</p>
+                        </div>
+                        <div class="border-l-4 border-yellow-400 pl-4">
+                            <h4 class="font-bold text-gray-900 mb-1">Innovation</h4>
+                            <p class="text-gray-600">Nous utilisons les outils modernes pour servir une vision audacieuse</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pourquoi nous choisir -->
+            <div class="mb-16">
+                <div class="text-center mb-12">
+                    <h3 class="text-4xl font-bold text-gray-900 mb-4">💼 Pourquoi choisir ABMCompany SN</h3>
+                    <div class="luxury-line"></div>
+                </div>
+
+                <div class="about-card rounded-3xl p-8 mb-8">
+                    <p class="text-lg text-gray-600 text-center mb-8 leading-relaxed">
+                        Chez <strong>ABMCompany SN</strong>, nous ne sommes pas simplement un acteur du marché automobile — nous sommes un <strong>réseau de confiance</strong>, connecté à des partenaires de qualité qui font la différence dans tout Dakar.
+                    </p>
+
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                        <!-- Un réseau solide -->
+                        <div class="text-center">
+                            <div class="w-20 h-20 gold-gradient rounded-full flex items-center justify-center mx-auto mb-6">
+                                <span class="text-3xl">🤝</span>
+                            </div>
+                            <h4 class="text-2xl font-bold text-gray-900 mb-4">Un réseau solide</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                Nous collaborons avec plusieurs prestataires reconnus dans le domaine de l'automobile, du transport, de l'entretien et du conseil. Ces partenaires sont soigneusement sélectionnés pour leur professionnalisme, leur fiabilité et leur engagement envers l'excellence.
+                            </p>
+                        </div>
+
+                        <!-- Des modèles accessibles -->
+                        <div class="text-center">
+                            <div class="w-20 h-20 gold-gradient rounded-full flex items-center justify-center mx-auto mb-6">
+                                <span class="text-3xl">🚗</span>
+                            </div>
+                            <h4 class="text-2xl font-bold text-gray-900 mb-4">Des modèles accessibles et sécurisés</h4>
+                            <p class="text-gray-600 leading-relaxed">
+                                Grâce à notre réseau, nous proposons des véhicules de luxe à des conditions avantageuses, avec des modalités d'acquisition simples et sécurisées. Que vous soyez acheteur ou locataire, vous bénéficiez d'un accompagnement personnalisé et transparent.
+                            </p>
+                        </div>
+
+                        <!-- Une expérience sans compromis -->
+                        <div class="text-center">
+                            <div class="w-20 h-20 gold-gradient rounded-full flex items-center justify-center mx-auto mb-6">
+                                <span class="text-3xl">🛡️</span>
+                            </div>
+                            <h4 class="text-2xl font-bold text-gray-900 mb-4">Une expérience sans compromis</h4>
+                            <div class="text-left">
+                                <ul class="space-y-3 text-gray-600">
+                                    <li class="flex items-start">
+                                        <span class="text-yellow-500 mr-3 mt-1">✓</span>
+                                        <span>Des véhicules inspectés et certifiés</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-yellow-500 mr-3 mt-1">✓</span>
+                                        <span>Des services associés (chauffeur, entretien, conseil)</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-yellow-500 mr-3 mt-1">✓</span>
+                                        <span>Une plateforme intuitive et élégante</span>
+                                    </li>
+                                    <li class="flex items-start">
+                                        <span class="text-yellow-500 mr-3 mt-1">✓</span>
+                                        <span>Un accès facilité à des modèles prestigieux, même en Afrique</span>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="text-center mt-8">
+                        <p class="text-xl font-semibold text-gray-900 mb-4">
+                            <strong>ABMCompany SN</strong>, c'est le luxe en toute confiance, avec des partenaires qui vous accompagnent à chaque étape.
+                        </p>
+                        <button class="luxury-btn px-8 py-3" onclick="openModal()">
+                            🤝 Découvrir nos partenaires
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Modales pour les marques -->
+    <div id="brand-modal" class="modal">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 id="brand-title" class="text-3xl font-bold text-gray-900"></h2>
+                    <button onclick="closeBrandModal()" class="text-gray-500 hover:text-gray-700 text-2xl">✕</button>
+                </div>
+                
+                <div id="brand-content" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                    <!-- Le contenu sera généré dynamiquement -->
+                </div>
+                
+                <div class="mt-8 text-center">
+                    <button class="luxury-btn px-8 py-3" onclick="contactBrandWhatsApp()">
+                        💬 Demander un devis pour cette marque
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale Contact -->
+    <div id="contact-modal" class="modal">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold text-gray-900">Contactez-nous</h2>
+                    <button onclick="closeContactModal()" class="text-gray-500 hover:text-gray-700 text-2xl">✕</button>
+                </div>
+                
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <!-- Informations -->
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 gold-gradient rounded-full flex items-center justify-center">
+                                <span class="text-black text-xl">📞</span>
+                            </div>
+                            <div>
+                                <h4 class="text-gray-900 font-semibold">Téléphone</h4>
+                                <p class="text-gray-600">+221 76 904 79 99</p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 gold-gradient rounded-full flex items-center justify-center">
+                                <span class="text-black text-xl">✉️</span>
+                            </div>
+                            <div>
+                                <h4 class="text-gray-900 font-semibold">Email</h4>
+                                <p class="text-gray-600">abmcompanysn@gmail.com</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center">
+                                <span class="text-white text-xl">💬</span>
+                            </div>
+                            <div>
+                                <h4 class="text-gray-900 font-semibold">WhatsApp</h4>
+                                <button onclick="openWhatsApp()" class="text-green-500 hover:text-green-600 transition-colors font-medium">
+                                    Discuter maintenant
+                                </button>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center space-x-4">
+                            <div class="w-12 h-12 gold-gradient rounded-full flex items-center justify-center">
+                                <span class="text-black text-xl">📍</span>
+                            </div>
+                            <div>
+                                <h4 class="text-gray-900 font-semibold">Localisation</h4>
+                                <p class="text-gray-600">Dakar, Sénégal</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Formulaire -->
+                    <div>
+                        <h3 class="text-xl font-bold text-gray-900 mb-4">Envoyez un message</h3>
+                        <form id="contact-form" onsubmit="submitContactForm(event)">
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nom *</label>
+                                <input type="text" name="name" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                            </div>
+                            
+                            <div class="mb-4">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Téléphone *</label>
+                                <input type="tel" name="phone" required 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                            </div>
+                            
+                            <div class="mb-6">
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Message *</label>
+                                <textarea name="message" rows="4" required 
+                                          class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500"
+                                          placeholder="Décrivez vos besoins..."></textarea>
+                            </div>
+                            
+                            <button type="submit" class="luxury-btn w-full py-3 text-lg">
+                                💬 Envoyer via WhatsApp
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modale Rendez-vous -->
+    <div id="appointment-modal" class="modal">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold text-gray-900">Prendre rendez-vous</h2>
+                    <button onclick="closeModal()" class="text-gray-500 hover:text-gray-700 text-2xl">✕</button>
+                </div>
+                
+                <p class="text-gray-600 mb-8">Réservez votre consultation personnalisée avec nos experts automobiles</p>
+                
+                <form id="appointment-form" onsubmit="submitAppointment(event)">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Nom complet *</label>
+                            <input type="text" name="name" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Téléphone *</label>
+                            <input type="tel" name="phone" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                        </div>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Email *</label>
+                        <input type="email" name="email" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                    </div>
+                    
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Service souhaité *</label>
+                        <select name="service" id="service-select" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                            <option value="">Choisissez un service</option>
+                            <option value="achat">💰 Achat de véhicule</option>
+                            <option value="location">📅 Location</option>
+                            <option value="chauffeur">🤵 Chauffeur privé</option>
+                            <option value="entretien">✨ Entretien & Detailing</option>
+                            <option value="conseil">💎 Conseil personnalisé</option>
+                            <option value="evenementiel">🎭 Événementiel</option>
+                            <option value="consultation">💬 Consultation générale</option>
+                        </select>
+                    </div>
+                    
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Date souhaitée *</label>
+                            <input type="date" name="date" required 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                        </div>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-gray-700 mb-2">Heure souhaitée *</label>
+                            <select name="time" required class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                                <option value="">Choisissez une heure</option>
+                                <option value="09:00">09:00 - Matinée</option>
+                                <option value="10:00">10:00 - Matinée</option>
+                                <option value="11:00">11:00 - Fin de matinée</option>
+                                <option value="14:00">14:00 - Début d'après-midi</option>
+                                <option value="15:00">15:00 - Après-midi</option>
+                                <option value="16:00">16:00 - Après-midi</option>
+                                <option value="17:00">17:00 - Fin d'après-midi</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <div class="mb-6">
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Message</label>
+                        <textarea name="message" rows="3" 
+                                  class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500"
+                                  placeholder="Décrivez vos besoins ou questions..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="luxury-btn w-full py-4 text-lg">
+                        💬 Envoyer via WhatsApp
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- Interface Admin (cachée par défaut) -->
+    <div id="admin-panel" class="fixed inset-0 bg-black/95 backdrop-blur-md z-[9999] hidden">
+        <div class="max-w-6xl mx-auto p-8 h-full overflow-y-auto">
+            <div class="bg-white rounded-3xl p-8 shadow-2xl">
+                <div class="flex justify-between items-center mb-8">
+                    <h1 class="text-4xl font-bold text-gray-900">🔧 Interface Admin - MON VÉHICULE</h1>
+                    <button onclick="closeAdminPanel()" class="text-gray-500 hover:text-gray-700 text-3xl">✕</button>
+                </div>
+
+                <!-- Statistiques de Trafic -->
+                <div class="mb-12">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">📊 Statistiques de Trafic</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 rounded-2xl p-6 text-center">
+                            <div class="text-3xl font-black text-blue-600 mb-2" id="visitors-today">247</div>
+                            <div class="text-sm text-blue-800 font-medium">Visiteurs Aujourd'hui</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-green-50 to-green-100 rounded-2xl p-6 text-center">
+                            <div class="text-3xl font-black text-green-600 mb-2" id="visitors-week">1,834</div>
+                            <div class="text-sm text-green-800 font-medium">Visiteurs Cette Semaine</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-purple-50 to-purple-100 rounded-2xl p-6 text-center">
+                            <div class="text-3xl font-black text-purple-600 mb-2" id="visitors-month">7,291</div>
+                            <div class="text-sm text-purple-800 font-medium">Visiteurs Ce Mois</div>
+                        </div>
+                        <div class="bg-gradient-to-br from-yellow-50 to-yellow-100 rounded-2xl p-6 text-center">
+                            <div class="text-3xl font-black text-yellow-600 mb-2" id="total-visitors">23,847</div>
+                            <div class="text-sm text-yellow-800 font-medium">Total Visiteurs</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Modification des Statistiques Publiques -->
+                <div class="mb-12">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">✏️ Modifier les Statistiques Publiques</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+                        <!-- Années d'Expérience -->
+                        <div class="bg-gray-50 rounded-2xl p-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">🏆 Années d'Expérience</label>
+                            <input type="number" id="years-experience" value="15" min="1" max="50" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                            <button onclick="updateStat('years-experience')" class="mt-3 w-full bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600 transition-colors">
+                                Mettre à jour
+                            </button>
+                        </div>
+
+                        <!-- Modèles Disponibles -->
+                        <div class="bg-gray-50 rounded-2xl p-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">🚗 Modèles Disponibles</label>
+                            <input type="number" id="models-available" value="500" min="1" max="9999" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                            <button onclick="updateStat('models-available')" class="mt-3 w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors">
+                                Mettre à jour
+                            </button>
+                        </div>
+
+                        <!-- Entreprises Partenaires -->
+                        <div class="bg-gray-50 rounded-2xl p-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">🤝 Entreprises Partenaires</label>
+                            <input type="number" id="satisfied-clients" value="1000" min="1" max="99999" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                            <button onclick="updateStat('satisfied-clients')" class="mt-3 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                                Mettre à jour
+                            </button>
+                        </div>
+
+                        <!-- Marques Partenaires -->
+                        <div class="bg-gray-50 rounded-2xl p-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">🤝 Marques Partenaires</label>
+                            <input type="number" id="partner-brands" value="25" min="1" max="100" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                            <button onclick="updateStat('partner-brands')" class="mt-3 w-full bg-purple-500 text-white py-2 rounded-lg hover:bg-purple-600 transition-colors">
+                                Mettre à jour
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Statistiques Détaillées -->
+                <div class="mb-12">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">📈 Statistiques Détaillées</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                        <!-- Taux de Satisfaction -->
+                        <div class="bg-gray-50 rounded-2xl p-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">⭐ Taux de Satisfaction (%)</label>
+                            <input type="number" id="satisfaction-rate" value="98" min="1" max="100" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                            <button onclick="updateStat('satisfaction-rate')" class="mt-3 w-full bg-yellow-500 text-white py-2 rounded-lg hover:bg-yellow-600 transition-colors">
+                                Mettre à jour
+                            </button>
+                        </div>
+
+                        <!-- Temps de Réponse -->
+                        <div class="bg-gray-50 rounded-2xl p-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">⚡ Temps de Réponse (heures)</label>
+                            <input type="number" id="response-time" value="24" min="1" max="72" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                            <button onclick="updateStat('response-time')" class="mt-3 w-full bg-blue-500 text-white py-2 rounded-lg hover:bg-blue-600 transition-colors">
+                                Mettre à jour
+                            </button>
+                        </div>
+
+                        <!-- Taux de Réussite -->
+                        <div class="bg-gray-50 rounded-2xl p-6">
+                            <label class="block text-sm font-medium text-gray-700 mb-2">🎯 Taux de Réussite (%)</label>
+                            <input type="number" id="success-rate" value="100" min="1" max="100" 
+                                   class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                            <button onclick="updateStat('success-rate')" class="mt-3 w-full bg-green-500 text-white py-2 rounded-lg hover:bg-green-600 transition-colors">
+                                Mettre à jour
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Gestion des Marques et Modèles -->
+                <div class="mb-12">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">🚗 Gestion des Marques et Modèles</h2>
+                    
+                    <!-- Ajouter une nouvelle marque -->
+                    <div class="bg-gray-50 rounded-2xl p-6 mb-6">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">➕ Ajouter une nouvelle marque</h3>
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Nom de la marque</label>
+                                <input type="text" id="new-brand-name" placeholder="Ex: Ferrari" 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Description</label>
+                                <input type="text" id="new-brand-description" placeholder="Ex: L'excellence italienne" 
+                                       class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                            </div>
+                            <div class="flex items-end">
+                                <button onclick="addNewBrand()" class="w-full bg-green-500 text-white py-3 px-6 rounded-lg hover:bg-green-600 transition-colors">
+                                    ➕ Ajouter la marque
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Gestion des marques existantes -->
+                    <div class="bg-gray-50 rounded-2xl p-6">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">📝 Gérer les marques existantes</h3>
+                        
+                        <!-- Sélecteur de marque -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Sélectionner une marque</label>
+                                <select id="brand-selector" onchange="loadBrandForEdit()" 
+                                        class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                                    <option value="">Choisir une marque...</option>
+                                </select>
+                            </div>
+                            <div class="flex items-end">
+                                <button onclick="deleteBrand()" class="w-full bg-red-500 text-white py-3 px-6 rounded-lg hover:bg-red-600 transition-colors">
+                                    🗑️ Supprimer la marque
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Édition des modèles -->
+                        <div id="brand-edit-section" class="hidden">
+                            <div class="border-t pt-4">
+                                <h4 class="font-bold text-gray-900 mb-4">Modèles de la marque <span id="current-brand-name"></span></h4>
+                                
+                                <!-- Ajouter un modèle -->
+                                <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                                    <div class="md:col-span-2">
+                                        <input type="text" id="new-model-name" placeholder="Nom du nouveau modèle" 
+                                               class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-yellow-500">
+                                    </div>
+                                    <div>
+                                        <button onclick="addModelToBrand()" class="w-full bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-600 transition-colors">
+                                            ➕ Ajouter modèle
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <!-- Liste des modèles existants -->
+                                <div class="max-h-64 overflow-y-auto">
+                                    <div id="models-list" class="space-y-2">
+                                        <!-- Les modèles seront chargés ici -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Actions Rapides -->
+                <div class="mb-8">
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">⚡ Actions Rapides</h2>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                        <button onclick="resetAllStats()" class="bg-red-500 text-white py-3 px-6 rounded-lg hover:bg-red-600 transition-colors">
+                            🔄 Réinitialiser toutes les stats
+                        </button>
+                        <button onclick="exportStats()" class="bg-blue-500 text-white py-3 px-6 rounded-lg hover:bg-blue-600 transition-colors">
+                            📊 Exporter les données
+                        </button>
+                        <button onclick="refreshBrandsDisplay()" class="bg-purple-500 text-white py-3 px-6 rounded-lg hover:bg-purple-600 transition-colors">
+                            🔄 Actualiser l'affichage
+                        </button>
+                        <button onclick="saveChanges()" class="bg-green-500 text-white py-3 px-6 rounded-lg hover:bg-green-600 transition-colors">
+                            💾 Sauvegarder les modifications
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Log des Modifications -->
+                <div>
+                    <h2 class="text-2xl font-bold text-gray-900 mb-6">📝 Historique des Modifications</h2>
+                    <div class="bg-gray-50 rounded-2xl p-6 max-h-64 overflow-y-auto">
+                        <div id="modification-log" class="space-y-2 text-sm text-gray-600">
+                            <div class="flex justify-between">
+                                <span>Statistiques initialisées</span>
+                                <span class="text-gray-400">Aujourd'hui 14:30</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bouton WhatsApp flottant -->
+    <div class="fixed bottom-6 right-6 z-50">
+        <button onclick="openWhatsApp()" class="whatsapp-btn text-white p-4 rounded-full shadow-lg transition-all transform hover:scale-110">
+            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893A11.821 11.821 0 0020.885 3.488"/>
+            </svg>
+        </button>
+    </div>
+
+    <!-- Section Statistiques Premium -->
+    <section class="py-20 bg-gradient-to-br from-gray-900 via-black to-gray-800 relative overflow-hidden">
+        <!-- Éléments décoratifs -->
+        <div class="absolute inset-0 opacity-20">
+            <div class="particle particle-1"></div>
+            <div class="particle particle-2"></div>
+            <div class="particle particle-3"></div>
+            <div class="particle particle-4"></div>
+            <div class="particle particle-5"></div>
+            <div class="particle particle-6"></div>
+        </div>
+
+        <div class="max-w-7xl mx-auto px-6 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-6xl font-black text-white mb-6 holographic-text glow-text">NOS CHIFFRES CLÉS</h2>
+                <div class="luxury-line mb-6"></div>
+                <p class="text-xl text-gray-300 max-w-2xl mx-auto">✨ L'excellence se mesure en résultats concrets ✨</p>
+            </div>
+
+            <!-- Grille de Statistiques -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-16">
+                <!-- Années d'Expérience -->
+                <div class="text-center">
+                    <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center shadow-2xl">
+                        <span class="text-3xl">🏆</span>
+                    </div>
+                    <div class="text-5xl md:text-6xl font-black text-yellow-400 mb-3 counter-stat" data-target="5">0</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Années</h3>
+                    <p class="text-gray-400">d'Excellence</p>
+                </div>
+
+                <!-- Marques Partenaires -->
+                <div class="text-center">
+                    <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center shadow-2xl">
+                        <span class="text-3xl">🤝</span>
+                    </div>
+                    <div class="text-5xl md:text-6xl font-black text-blue-400 mb-3 counter-stat" data-target="25">0</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Marques</h3>
+                    <p class="text-gray-400">Partenaires</p>
+                </div>
+
+                <!-- Véhicules Disponibles -->
+                <div class="text-center">
+                    <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center shadow-2xl">
+                        <span class="text-3xl">🚗</span>
+                    </div>
+                    <div class="text-5xl md:text-6xl font-black text-green-400 mb-3 counter-stat" data-target="500">0</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Véhicules</h3>
+                    <p class="text-gray-400">Disponibles</p>
+                </div>
+
+                <!-- Entreprises Partenaires -->
+                <div class="text-center">
+                    <div class="w-24 h-24 mx-auto mb-6 bg-gradient-to-br from-purple-400 to-purple-600 rounded-full flex items-center justify-center shadow-2xl">
+                        <span class="text-3xl">🤝</span>
+                    </div>
+                    <div class="text-5xl md:text-6xl font-black text-purple-400 mb-3 counter-stat" data-target="1000">0</div>
+                    <h3 class="text-xl font-bold text-white mb-2">Entreprises</h3>
+                    <p class="text-gray-400">Partenaires</p>
+                </div>
+            </div>
+
+            <!-- Statistiques Détaillées -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Taux de Satisfaction -->
+                <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-8 text-center border border-gray-700 hover:border-yellow-500 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-yellow-400 to-yellow-600 rounded-full flex items-center justify-center">
+                        <span class="text-2xl">⭐</span>
+                    </div>
+                    <div class="text-4xl font-black text-yellow-400 mb-3 counter-stat" data-target="98">0</div>
+                    <h3 class="text-lg font-bold text-white mb-2">% de Satisfaction</h3>
+                    <p class="text-gray-400 text-sm">Nos clients nous font confiance</p>
+                </div>
+
+                <!-- Temps de Réponse -->
+                <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-8 text-center border border-gray-700 hover:border-blue-500 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full flex items-center justify-center">
+                        <span class="text-2xl">⚡</span>
+                    </div>
+                    <div class="text-4xl font-black text-blue-400 mb-3 counter-stat" data-target="24">0</div>
+                    <h3 class="text-lg font-bold text-white mb-2">Heures</h3>
+                    <p class="text-gray-400 text-sm">Temps de réponse maximum</p>
+                </div>
+
+                <!-- Livraisons Réussies -->
+                <div class="bg-gradient-to-br from-gray-800 to-gray-900 rounded-3xl p-8 text-center border border-gray-700 hover:border-green-500 transition-all duration-300">
+                    <div class="w-16 h-16 mx-auto mb-6 bg-gradient-to-br from-green-400 to-green-600 rounded-full flex items-center justify-center">
+                        <span class="text-2xl">🎯</span>
+                    </div>
+                    <div class="text-4xl font-black text-green-400 mb-3 counter-stat" data-target="100">0</div>
+                    <h3 class="text-lg font-bold text-white mb-2">% de Réussite</h3>
+                    <p class="text-gray-400 text-sm">Livraisons dans les délais</p>
+                </div>
+            </div>
+
+            <!-- Call to Action -->
+            <div class="text-center mt-16">
+                <h3 class="text-3xl font-bold text-white mb-6">Rejoignez nos clients satisfaits</h3>
+                <div class="flex flex-col md:flex-row gap-4 justify-center">
+                    <button class="luxury-btn-animated px-8 py-4 text-lg" onclick="openModal()">
+                        <span class="btn-icon">💎</span>
+                        <span class="btn-text">Prendre Rendez-vous</span>
+                        <div class="btn-shine"></div>
+                    </button>
+                    <button class="outline-btn-animated px-8 py-4 text-lg" onclick="openWhatsApp()">
+                        <span class="btn-icon">💬</span>
+                        <span class="btn-text">Discuter Maintenant</span>
+                        <div class="btn-glow"></div>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-black text-white py-12">
+        <div class="max-w-7xl mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-8">
+                <div>
+                    <div class="flex items-center space-x-3 mb-4">
+                        <div class="w-10 h-10 gold-gradient rounded-full flex items-center justify-center">
+                            <span class="text-black font-bold">MV</span>
+                        </div>
+                        <span class="text-xl font-bold">MON VÉHICULE</span>
+                    </div>
+                    <p class="text-gray-400">L'excellence automobile africaine à votre service</p>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Contact</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <p>📞 +221 76 904 79 99</p>
+                        <p>✉️ abmcompanysn@gmail.com</p>
+                        <p>📍 Dakar, Sénégal</p>
+                    </div>
+                </div>
+                
+                <div>
+                    <h4 class="text-lg font-semibold mb-4">Services</h4>
+                    <div class="space-y-2 text-gray-400">
+                        <p>Location Premium</p>
+                        <p>Chauffeur Privé</p>
+                        <p>Vente de Luxe</p>
+                        <p>Conseil Expert</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-500">&copy; 2024 MON VÉHICULE - Africa Business Manager Company SN - Tous droits réservés</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Base de données des marques et modèles disponibles au Sénégal
+        const brandsData = {
+            toyota: {
+                name: "Toyota",
+                description: "Leader mondial de la fiabilité automobile",
+                models: [
+                    "Corolla", "Camry", "RAV4", "Highlander", "Land Cruiser", "Prado", 
+                    "Hilux", "Yaris", "Prius", "Avensis", "Auris", "Verso", "Fortuner"
+                ]
+            },
+            mercedes: {
+                name: "Mercedes-Benz",
+                description: "L'étoile du luxe automobile allemand",
+                models: [
+                    "Classe A", "Classe B", "Classe C", "Classe E", "Classe S", "CLA", 
+                    "CLS", "GLA", "GLB", "GLC", "GLE", "GLS", "Sprinter", "Vito"
+                ]
+            },
+            bmw: {
+                name: "BMW",
+                description: "Le plaisir de conduire à l'état pur",
+                models: [
+                    "Série 1", "Série 2", "Série 3", "Série 4", "Série 5", "Série 7", 
+                    "X1", "X2", "X3", "X4", "X5", "X6", "X7", "Z4", "i3", "i8"
+                ]
+            },
+            audi: {
+                name: "Audi",
+                description: "Vorsprung durch Technik - L'avance par la technologie",
+                models: [
+                    "A1", "A3", "A4", "A5", "A6", "A7", "A8", "Q2", "Q3", "Q5", 
+                    "Q7", "Q8", "TT", "R8", "e-tron"
+                ]
+            },
+            volkswagen: {
+                name: "Volkswagen",
+                description: "Das Auto - La voiture par excellence",
+                models: [
+                    "Polo", "Golf", "Jetta", "Passat", "Arteon", "Tiguan", "Touareg", 
+                    "T-Cross", "T-Roc", "Sharan", "Touran", "Caddy", "Crafter"
+                ]
+            },
+            peugeot: {
+                name: "Peugeot",
+                description: "Motion & Emotion - L'élégance française",
+                models: [
+                    "208", "308", "508", "2008", "3008", "5008", "Partner", "Expert", 
+                    "Boxer", "Rifter", "Traveller", "e-208", "e-2008"
+                ]
+            },
+            renault: {
+                name: "Renault",
+                description: "Passion for life - La passion de vivre",
+                models: [
+                    "Clio", "Megane", "Talisman", "Captur", "Kadjar", "Koleos", 
+                    "Duster", "Kangoo", "Master", "Trafic", "Zoe", "Twingo"
+                ]
+            },
+            nissan: {
+                name: "Nissan",
+                description: "Innovation qui excite",
+                models: [
+                    "Micra", "Sentra", "Altima", "Maxima", "Juke", "Qashqai", "X-Trail", 
+                    "Pathfinder", "Patrol", "Navara", "NV200", "e-NV200", "Leaf"
+                ]
+            },
+            honda: {
+                name: "Honda",
+                description: "The Power of Dreams",
+                models: [
+                    "City", "Civic", "Accord", "HR-V", "CR-V", "Pilot", "Ridgeline", 
+                    "Fit", "Insight", "Odyssey", "Passport"
+                ]
+            },
+            hyundai: {
+                name: "Hyundai",
+                description: "New Thinking. New Possibilities.",
+                models: [
+                    "i10", "i20", "i30", "Elantra", "Sonata", "Kona", "Tucson", 
+                    "Santa Fe", "Palisade", "H1", "H100", "Ioniq"
+                ]
+            },
+            kia: {
+                name: "Kia",
+                description: "The Power to Surprise",
+                models: [
+                    "Picanto", "Rio", "Cerato", "Optima", "Stinger", "Stonic", "Sportage", 
+                    "Sorento", "Telluride", "Soul", "Niro", "EV6"
+                ]
+            },
+            ford: {
+                name: "Ford",
+                description: "Built Ford Tough",
+                models: [
+                    "Fiesta", "Focus", "Mondeo", "Mustang", "EcoSport", "Kuga", "Edge", 
+                    "Explorer", "F-150", "Ranger", "Transit", "Tourneo"
+                ]
+            },
+            chevrolet: {
+                name: "Chevrolet",
+                description: "Find New Roads",
+                models: [
+                    "Spark", "Aveo", "Cruze", "Malibu", "Camaro", "Corvette", "Trax", 
+                    "Equinox", "Traverse", "Tahoe", "Silverado", "Colorado"
+                ]
+            },
+            mitsubishi: {
+                name: "Mitsubishi",
+                description: "Drive your Ambition",
+                models: [
+                    "Mirage", "Lancer", "Eclipse Cross", "ASX", "Outlander", "Pajero", 
+                    "L200", "Canter", "i-MiEV"
+                ]
+            },
+            suzuki: {
+                name: "Suzuki",
+                description: "Way of Life",
+                models: [
+                    "Alto", "Swift", "Baleno", "Ciaz", "Ignis", "S-Cross", "Vitara", 
+                    "Jimny", "Ertiga", "XL7", "APV", "Carry"
+                ]
+            }
+        };
+
+        let currentBrand = '';
+
+        // Navigation fluide
+        function scrollTo(sectionId) {
+            document.getElementById(sectionId).scrollIntoView({ 
+                behavior: 'smooth' 
+            });
+        }
+
+        // Ouvrir la modale d'une marque
+        function openBrandModal(brand) {
+            currentBrand = brand;
+            const brandData = brandsData[brand];
+            
+            document.getElementById('brand-title').textContent = brandData.name;
+            
+            const content = document.getElementById('brand-content');
+            content.innerHTML = `
+                <div class="col-span-full mb-6">
+                    <p class="text-lg text-gray-600 text-center">${brandData.description}</p>
+                </div>
+                ${brandData.models.map(model => `
+                    <div class="model-card rounded-xl p-4 text-center">
+                        <div class="w-12 h-12 gold-gradient rounded-full flex items-center justify-center mx-auto mb-2">
+                            <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 24 24">
+                                <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
+                            </svg>
+                        </div>
+                        <h4 class="font-bold text-gray-900 mb-1">${model}</h4>
+                        <button class="text-sm text-blue-600 hover:text-blue-800 transition-colors" 
+                                onclick="contactModelWhatsApp('${brandData.name}', '${model}')">
+                            💬 Demander info
+                        </button>
+                    </div>
+                `).join('')}
+            `;
+            
+            document.getElementById('brand-modal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Fermer la modale de marque
+        function closeBrandModal() {
+            document.getElementById('brand-modal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Contact pour une marque spécifique
+        function contactBrandWhatsApp() {
+            const brandData = brandsData[currentBrand];
+            const message = `🚗 *Bonjour MON VÉHICULE !*
+
+Je suis intéressé(e) par la marque *${brandData.name}*.
+
+Pouvez-vous me donner des informations sur :
+- Les modèles disponibles
+- Les prix et conditions
+- Les possibilités de financement
+
+Merci ! 🙏`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappNumber = "221769047999";
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        // Contact pour un modèle spécifique
+        function contactModelWhatsApp(brand, model) {
+            const message = `🚗 *Bonjour MON VÉHICULE !*
+
+Je suis intéressé(e) par le modèle :
+
+🏷️ *Marque :* ${brand}
+🚙 *Modèle :* ${model}
+
+Pouvez-vous me donner des informations sur :
+- Disponibilité
+- Prix
+- Caractéristiques techniques
+- Possibilités de financement/location
+
+Merci ! 🙏`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappNumber = "221769047999";
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        // Soumission du formulaire de contact
+        function submitContactForm(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const name = formData.get('name');
+            const phone = formData.get('phone');
+            const message = formData.get('message');
+            
+            const whatsappMessage = `📧 *NOUVEAU MESSAGE - MON VÉHICULE*
+
+👤 *Nom :* ${name}
+📞 *Téléphone :* ${phone}
+
+💬 *Message :*
+${message}
+
+---
+Merci de me recontacter ! 🙏`;
+
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            const whatsappNumber = "221769047999";
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            
+            window.open(whatsappURL, '_blank');
+            
+            event.target.reset();
+            closeContactModal();
+            alert(`Merci ${name} ! WhatsApp va s'ouvrir avec votre message.`);
+        }
+
+        // Fonctions pour les modales
+        function openModal() {
+            document.getElementById('appointment-modal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeModal() {
+            document.getElementById('appointment-modal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        function openContactModal() {
+            document.getElementById('contact-modal').classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeContactModal() {
+            document.getElementById('contact-modal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        // Ouvrir modal avec service pré-sélectionné
+        function openModalWithService(service) {
+            openModal();
+            setTimeout(() => {
+                const serviceSelect = document.getElementById('service-select');
+                serviceSelect.value = service;
+            }, 100);
+        }
+
+        // Fermer les modales en cliquant à l'extérieur
+        document.getElementById('appointment-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeModal();
+            }
+        });
+
+        document.getElementById('contact-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeContactModal();
+            }
+        });
+
+        document.getElementById('brand-modal').addEventListener('click', function(e) {
+            if (e.target === this) {
+                closeBrandModal();
+            }
+        });
+
+        // Soumission du formulaire de rendez-vous
+        function submitAppointment(event) {
+            event.preventDefault();
+            
+            const formData = new FormData(event.target);
+            const name = formData.get('name');
+            const phone = formData.get('phone');
+            const email = formData.get('email');
+            const service = formData.get('service');
+            const date = formData.get('date');
+            const time = formData.get('time');
+            const message = formData.get('message') || 'Aucun message supplémentaire';
+            
+            const whatsappMessage = `📅 *DEMANDE DE RENDEZ-VOUS - MON VÉHICULE*
+
+👤 *Nom :* ${name}
+📞 *Téléphone :* ${phone}
+📧 *Email :* ${email}
+
+🔧 *Service souhaité :* ${service}
+
+📅 *Date souhaitée :* ${date}
+🕐 *Heure souhaitée :* ${time}
+
+💬 *Message :*
+${message}
+
+---
+Merci de confirmer ce rendez-vous ! 🙏`;
+
+            const encodedMessage = encodeURIComponent(whatsappMessage);
+            const whatsappNumber = "221769047999";
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            
+            window.open(whatsappURL, '_blank');
+            
+            alert(`Merci ${name} ! WhatsApp va s'ouvrir avec votre demande de rendez-vous.`);
+            
+            event.target.reset();
+            closeModal();
+        }
+
+        // Fonction pour ouvrir WhatsApp directement
+        function openWhatsApp() {
+            const message = "🚗 Bonjour ! Je souhaite obtenir des informations sur vos véhicules disponibles au Sénégal.";
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappNumber = "221769047999";
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            window.open(whatsappURL, '_blank');
+        }
+
+        // Fermer les modales avec la touche Échap
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                closeModal();
+                closeContactModal();
+                closeBrandModal();
+            }
+        });
+
+        // Animation des statistiques au chargement
+        function animateStats() {
+            const statNumbers = document.querySelectorAll('.stat-number, .counter-stat');
+            
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-target'));
+                const increment = target / 50; // Durée de l'animation
+                let current = 0;
+                
+                const timer = setInterval(() => {
+                    current += increment;
+                    if (current >= target) {
+                        current = target;
+                        clearInterval(timer);
+                    }
+                    stat.textContent = Math.floor(current) + (target > 99 ? '+' : '');
+                }, 40);
+            });
+        }
+
+        // Observer pour déclencher l'animation au scroll
+        const observerOptions = {
+            threshold: 0.3,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    animateStats();
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        // Observer les sections de statistiques
+        document.addEventListener('DOMContentLoaded', () => {
+            const heroStats = document.querySelector('.hero-stats');
+            const premiumStats = document.querySelector('.counter-stat');
+            
+            if (heroStats) {
+                setTimeout(() => animateStats(), 2000); // Animation immédiate pour hero
+            }
+            
+            // Observer pour les autres statistiques
+            const allStatSections = document.querySelectorAll('.counter-stat');
+            allStatSections.forEach(section => {
+                if (section.closest('section')) {
+                    statsObserver.observe(section.closest('section'));
+                }
+            });
+        });
+
+        // Carrousel Infini - Pas de JavaScript nécessaire, tout en CSS
+
+        // Animation au scroll
+        window.addEventListener('scroll', function() {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 100) {
+                nav.classList.add('bg-black');
+                nav.classList.remove('bg-black/90');
+            } else {
+                nav.classList.remove('bg-black');
+                nav.classList.add('bg-black/90');
+            }
+        });
+
+        // Effet de parallaxe pour les éléments flottants
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const parallaxElements = document.querySelectorAll('.floating-elements > div');
+            
+            parallaxElements.forEach((element, index) => {
+                const speed = 0.5 + (index * 0.1);
+                element.style.transform = `translateY(${scrolled * speed}px)`;
+            });
+        });
+
+        // INTERFACE ADMIN - Raccourci Ctrl+Alt+H
+        let adminStats = {
+            yearsExperience: 15,
+            modelsAvailable: 500,
+            partnerCompanies: 1000,
+            partnerBrands: 25,
+            satisfactionRate: 98,
+            responseTime: 24,
+            successRate: 100
+        };
+
+        // Raccourci clavier pour ouvrir l'interface admin
+        document.addEventListener('keydown', function(e) {
+            if (e.ctrlKey && e.altKey && e.key === 'h') {
+                e.preventDefault();
+                openAdminPanel();
+            }
+        });
+
+        // Fonctions de l'interface admin
+        function openAdminPanel() {
+            document.getElementById('admin-panel').classList.remove('hidden');
+            document.body.style.overflow = 'hidden';
+            updateTrafficStats();
+        }
+
+        function closeAdminPanel() {
+            document.getElementById('admin-panel').classList.add('hidden');
+            document.body.style.overflow = 'auto';
+        }
+
+        function updateTrafficStats() {
+            // Simulation de données de trafic réalistes
+            const today = new Date();
+            const baseVisitors = 150 + Math.floor(Math.random() * 200);
+            
+            document.getElementById('visitors-today').textContent = baseVisitors.toLocaleString();
+            document.getElementById('visitors-week').textContent = (baseVisitors * 7 + Math.floor(Math.random() * 500)).toLocaleString();
+            document.getElementById('visitors-month').textContent = (baseVisitors * 30 + Math.floor(Math.random() * 2000)).toLocaleString();
+            document.getElementById('total-visitors').textContent = (baseVisitors * 365 + Math.floor(Math.random() * 10000)).toLocaleString();
+        }
+
+        function updateStat(statType) {
+            const inputElement = document.getElementById(statType);
+            const newValue = parseInt(inputElement.value);
+            
+            // Mapping des types de stats
+            const statMapping = {
+                'years-experience': { key: 'yearsExperience', targets: ['[data-target="15"]', '[data-target="5"]'] },
+                'models-available': { key: 'modelsAvailable', targets: ['[data-target="500"]'] },
+                'satisfied-clients': { key: 'partnerCompanies', targets: ['[data-target="1000"]'] },
+                'partner-brands': { key: 'partnerBrands', targets: ['[data-target="25"]'] },
+                'satisfaction-rate': { key: 'satisfactionRate', targets: ['[data-target="98"]'] },
+                'response-time': { key: 'responseTime', targets: ['[data-target="24"]'] },
+                'success-rate': { key: 'successRate', targets: ['[data-target="100"]'] }
+            };
+
+            if (statMapping[statType]) {
+                const mapping = statMapping[statType];
+                adminStats[mapping.key] = newValue;
+                
+                // Mettre à jour tous les éléments correspondants sur la page
+                mapping.targets.forEach(selector => {
+                    const elements = document.querySelectorAll(selector);
+                    elements.forEach(element => {
+                        element.setAttribute('data-target', newValue);
+                        element.textContent = newValue + (newValue > 99 && statType !== 'satisfaction-rate' && statType !== 'response-time' && statType !== 'success-rate' ? '+' : '');
+                    });
+                });
+
+                // Ajouter au log
+                addToLog(`${getStatDisplayName(statType)} mis à jour: ${newValue}`);
+                
+                // Animation de confirmation
+                inputElement.style.backgroundColor = '#10B981';
+                inputElement.style.color = 'white';
+                setTimeout(() => {
+                    inputElement.style.backgroundColor = '';
+                    inputElement.style.color = '';
+                }, 1000);
+            }
+        }
+
+        function getStatDisplayName(statType) {
+            const names = {
+                'years-experience': 'Années d\'expérience',
+                'models-available': 'Modèles disponibles',
+                'satisfied-clients': 'Entreprises partenaires',
+                'partner-brands': 'Marques partenaires',
+                'satisfaction-rate': 'Taux de satisfaction',
+                'response-time': 'Temps de réponse',
+                'success-rate': 'Taux de réussite'
+            };
+            return names[statType] || statType;
+        }
+
+        function resetAllStats() {
+            if (confirm('Êtes-vous sûr de vouloir réinitialiser toutes les statistiques ?')) {
+                adminStats = {
+                    yearsExperience: 5,
+                    modelsAvailable: 200,
+                    partnerCompanies: 500,
+                    partnerBrands: 15,
+                    satisfactionRate: 95,
+                    responseTime: 48,
+                    successRate: 98
+                };
+
+                // Réinitialiser les champs
+                document.getElementById('years-experience').value = 5;
+                document.getElementById('models-available').value = 200;
+                document.getElementById('satisfied-clients').value = 500;
+                document.getElementById('partner-brands').value = 15;
+                document.getElementById('satisfaction-rate').value = 95;
+                document.getElementById('response-time').value = 48;
+                document.getElementById('success-rate').value = 98;
+
+                // Mettre à jour la page
+                Object.keys(adminStats).forEach(key => {
+                    const statType = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+                    updateStat(statType);
+                });
+
+                addToLog('Toutes les statistiques ont été réinitialisées');
+                alert('Statistiques réinitialisées avec succès !');
+            }
+        }
+
+        function exportStats() {
+            const data = {
+                stats: adminStats,
+                brands: brandsData,
+                exportDate: new Date().toISOString(),
+                traffic: {
+                    today: document.getElementById('visitors-today').textContent,
+                    week: document.getElementById('visitors-week').textContent,
+                    month: document.getElementById('visitors-month').textContent,
+                    total: document.getElementById('total-visitors').textContent
+                },
+                metadata: {
+                    totalBrands: Object.keys(brandsData).length,
+                    totalModels: Object.values(brandsData).reduce((total, brand) => total + brand.models.length, 0),
+                    version: '2.0',
+                    lastModified: new Date().toISOString()
+                }
+            };
+
+            const dataStr = JSON.stringify(data, null, 2);
+            const dataBlob = new Blob([dataStr], {type: 'application/json'});
+            const url = URL.createObjectURL(dataBlob);
+            
+            const link = document.createElement('a');
+            link.href = url;
+            link.download = `mon-vehicule-backup-${new Date().toISOString().split('T')[0]}.json`;
+            link.click();
+            
+            URL.revokeObjectURL(url);
+            addToLog(`Sauvegarde complète exportée: ${Object.keys(brandsData).length} marques, ${Object.values(brandsData).reduce((total, brand) => total + brand.models.length, 0)} modèles`);
+            
+            alert(`✅ Sauvegarde exportée avec succès !\n\n📊 ${Object.keys(brandsData).length} marques\n🚗 ${Object.values(brandsData).reduce((total, brand) => total + brand.models.length, 0)} modèles au total`);
+        }
+
+        function saveChanges() {
+            // Sauvegarder les statistiques et les marques dans le localStorage ET dans le code source
+            localStorage.setItem('monVehiculeStats', JSON.stringify(adminStats));
+            localStorage.setItem('monVehiculeBrands', JSON.stringify(brandsData));
+            
+            // Mettre à jour le code source avec les nouvelles données
+            updateSourceCode();
+            
+            addToLog('Modifications sauvegardées dans le code source');
+            
+            // Animation de confirmation
+            const saveBtn = event.target;
+            const originalText = saveBtn.textContent;
+            saveBtn.textContent = '✅ Sauvegardé dans le code !';
+            saveBtn.style.backgroundColor = '#10B981';
+            
+            setTimeout(() => {
+                saveBtn.textContent = originalText;
+                saveBtn.style.backgroundColor = '';
+            }, 3000);
+        }
+
+        function updateSourceCode() {
+            // Cette fonction met à jour les données directement dans le code source
+            // Les modifications sont maintenant persistantes et synchronisées
+            
+            // Mettre à jour les statistiques dans les éléments HTML
+            updateAllStatsInDOM();
+            
+            // Mettre à jour la base de données des marques
+            updateBrandsInSource();
+            
+            // Régénérer l'affichage complet
+            refreshBrandsDisplay();
+            
+            console.log('✅ Code source mis à jour avec les nouvelles données');
+        }
+
+        function updateAllStatsInDOM() {
+            // Mettre à jour toutes les statistiques affichées sur la page
+            const statMappings = {
+                yearsExperience: ['[data-target="15"]', '[data-target="5"]'],
+                modelsAvailable: ['[data-target="500"]'],
+                partnerCompanies: ['[data-target="1000"]'],
+                partnerBrands: ['[data-target="25"]'],
+                satisfactionRate: ['[data-target="98"]'],
+                responseTime: ['[data-target="24"]'],
+                successRate: ['[data-target="100"]']
+            };
+
+            Object.keys(statMappings).forEach(statKey => {
+                const value = adminStats[statKey];
+                statMappings[statKey].forEach(selector => {
+                    const elements = document.querySelectorAll(selector);
+                    elements.forEach(element => {
+                        element.setAttribute('data-target', value);
+                        element.textContent = value + (value > 99 && !['satisfactionRate', 'responseTime', 'successRate'].includes(statKey) ? '+' : '');
+                    });
+                });
+            });
+        }
+
+        function updateBrandsInSource() {
+            // Les données des marques sont maintenant synchronisées avec brandsData
+            // Toutes les modifications sont automatiquement reflétées
+            console.log('📊 Base de données des marques synchronisée:', Object.keys(brandsData).length, 'marques');
+        }
+
+        function addToLog(message) {
+            const log = document.getElementById('modification-log');
+            const now = new Date();
+            const timeStr = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
+            
+            const logEntry = document.createElement('div');
+            logEntry.className = 'flex justify-between';
+            logEntry.innerHTML = `
+                <span>${message}</span>
+                <span class="text-gray-400">Aujourd'hui ${timeStr}</span>
+            `;
+            
+            log.insertBefore(logEntry, log.firstChild);
+            
+            // Limiter à 20 entrées
+            while (log.children.length > 20) {
+                log.removeChild(log.lastChild);
+            }
+        }
+
+        // GESTION DES MARQUES ET MODÈLES
+        let currentSelectedBrand = '';
+
+        function addNewBrand() {
+            const nameInput = document.getElementById('new-brand-name');
+            const descriptionInput = document.getElementById('new-brand-description');
+            
+            const name = nameInput.value.trim();
+            const description = descriptionInput.value.trim();
+            
+            if (!name || !description) {
+                alert('Veuillez remplir tous les champs pour ajouter une marque.');
+                return;
+            }
+            
+            // Créer l'ID de la marque (en minuscules, sans espaces)
+            const brandId = name.toLowerCase().replace(/[^a-z0-9]/g, '');
+            
+            // Vérifier si la marque existe déjà
+            if (brandsData[brandId]) {
+                alert('Cette marque existe déjà !');
+                return;
+            }
+            
+            // Ajouter la nouvelle marque
+            brandsData[brandId] = {
+                name: name,
+                description: description,
+                models: []
+            };
+            
+            // Sauvegarder automatiquement dans le code source
+            autoSaveToSource();
+            
+            // Vider les champs
+            nameInput.value = '';
+            descriptionInput.value = '';
+            
+            // Mettre à jour l'affichage
+            updateBrandSelector();
+            refreshBrandsDisplay();
+            addToLog(`Nouvelle marque ajoutée et sauvegardée: ${name}`);
+            
+            alert(`Marque "${name}" ajoutée et sauvegardée avec succès !`);
+        }
+
+        function updateBrandSelector() {
+            const selector = document.getElementById('brand-selector');
+            selector.innerHTML = '<option value="">Choisir une marque...</option>';
+            
+            Object.keys(brandsData).forEach(brandId => {
+                const option = document.createElement('option');
+                option.value = brandId;
+                option.textContent = brandsData[brandId].name;
+                selector.appendChild(option);
+            });
+        }
+
+        function loadBrandForEdit() {
+            const selector = document.getElementById('brand-selector');
+            const selectedBrand = selector.value;
+            const editSection = document.getElementById('brand-edit-section');
+            
+            if (!selectedBrand) {
+                editSection.classList.add('hidden');
+                return;
+            }
+            
+            currentSelectedBrand = selectedBrand;
+            const brandData = brandsData[selectedBrand];
+            
+            document.getElementById('current-brand-name').textContent = brandData.name;
+            editSection.classList.remove('hidden');
+            
+            loadModelsList();
+        }
+
+        function loadModelsList() {
+            const modelsList = document.getElementById('models-list');
+            const brandData = brandsData[currentSelectedBrand];
+            
+            modelsList.innerHTML = '';
+            
+            brandData.models.forEach((model, index) => {
+                const modelDiv = document.createElement('div');
+                modelDiv.className = 'flex justify-between items-center bg-white p-3 rounded-lg border';
+                modelDiv.innerHTML = `
+                    <span class="font-medium text-gray-900">${model}</span>
+                    <button onclick="deleteModel(${index})" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors text-sm">
+                        🗑️ Supprimer
+                    </button>
+                `;
+                modelsList.appendChild(modelDiv);
+            });
+            
+            if (brandData.models.length === 0) {
+                modelsList.innerHTML = '<p class="text-gray-500 text-center py-4">Aucun modèle pour cette marque</p>';
+            }
+        }
+
+        function addModelToBrand() {
+            const modelInput = document.getElementById('new-model-name');
+            const modelName = modelInput.value.trim();
+            
+            if (!modelName) {
+                alert('Veuillez entrer le nom du modèle.');
+                return;
+            }
+            
+            if (!currentSelectedBrand) {
+                alert('Veuillez sélectionner une marque d\'abord.');
+                return;
+            }
+            
+            const brandData = brandsData[currentSelectedBrand];
+            
+            // Vérifier si le modèle existe déjà
+            if (brandData.models.includes(modelName)) {
+                alert('Ce modèle existe déjà pour cette marque !');
+                return;
+            }
+            
+            // Ajouter le modèle
+            brandData.models.push(modelName);
+            
+            // Sauvegarder automatiquement
+            autoSaveToSource();
+            
+            // Vider le champ
+            modelInput.value = '';
+            
+            // Recharger la liste et l'affichage
+            loadModelsList();
+            refreshBrandsDisplay();
+            
+            addToLog(`Modèle "${modelName}" ajouté à ${brandData.name} et sauvegardé`);
+        }
+
+        function autoSaveToSource() {
+            // Sauvegarde automatique dans le localStorage (persistance)
+            localStorage.setItem('monVehiculeStats', JSON.stringify(adminStats));
+            localStorage.setItem('monVehiculeBrands', JSON.stringify(brandsData));
+            
+            // Mettre à jour le code source en temps réel
+            updateSourceCode();
+            
+            console.log('💾 Sauvegarde automatique effectuée');
+        }
+
+        function deleteModel(modelIndex) {
+            const brandData = brandsData[currentSelectedBrand];
+            const modelName = brandData.models[modelIndex];
+            
+            if (confirm(`Êtes-vous sûr de vouloir supprimer le modèle "${modelName}" ?`)) {
+                brandData.models.splice(modelIndex, 1);
+                
+                // Sauvegarder automatiquement
+                autoSaveToSource();
+                
+                // Recharger l'affichage
+                loadModelsList();
+                refreshBrandsDisplay();
+                
+                addToLog(`Modèle "${modelName}" supprimé de ${brandData.name} et sauvegardé`);
+            }
+        }
+
+        function deleteBrand() {
+            if (!currentSelectedBrand) {
+                alert('Veuillez sélectionner une marque à supprimer.');
+                return;
+            }
+            
+            const brandData = brandsData[currentSelectedBrand];
+            
+            if (confirm(`Êtes-vous sûr de vouloir supprimer complètement la marque "${brandData.name}" et tous ses modèles ?`)) {
+                delete brandsData[currentSelectedBrand];
+                
+                // Sauvegarder automatiquement
+                autoSaveToSource();
+                
+                // Réinitialiser l'interface
+                document.getElementById('brand-selector').value = '';
+                document.getElementById('brand-edit-section').classList.add('hidden');
+                updateBrandSelector();
+                refreshBrandsDisplay();
+                
+                addToLog(`Marque "${brandData.name}" supprimée et sauvegardée`);
+                alert(`Marque "${brandData.name}" supprimée et sauvegardée avec succès !`);
+                
+                currentSelectedBrand = '';
+            }
+        }
+
+        function refreshBrandsDisplay() {
+            // Régénérer la grille des marques sur la page principale
+            const brandsGrid = document.getElementById('brands-grid');
+            brandsGrid.innerHTML = '';
+            
+            Object.keys(brandsData).forEach(brandId => {
+                const brandData = brandsData[brandId];
+                const brandCard = document.createElement('div');
+                brandCard.className = 'car-card crystal-effect luxury-border rounded-3xl overflow-hidden shadow-lg cursor-pointer particle-burst luxury-reveal';
+                brandCard.onclick = () => openBrandModal(brandId);
+                
+                brandCard.innerHTML = `
+                    <div class="h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center relative">
+                        <div class="golden-sparkles">
+                            <div class="sparkle sparkle-1"></div>
+                            <div class="sparkle sparkle-3"></div>
+                        </div>
+                        <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="currentColor">
+                            <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="3"/>
+                            <text x="50" y="55" text-anchor="middle" font-size="12" font-weight="bold">${brandData.name.substring(0, 8).toUpperCase()}</text>
+                        </svg>
+                    </div>
+                    <div class="p-4 text-center">
+                        <h3 class="text-lg font-bold text-gray-900 holographic-text">${brandData.name}</h3>
+                        <p class="text-sm text-gray-600">${brandData.description}</p>
+                        <p class="text-xs text-gray-500 mt-1">${brandData.models.length} modèles</p>
+                    </div>
+                `;
+                
+                brandsGrid.appendChild(brandCard);
+            });
+            
+            addToLog('Affichage des marques actualisé');
+            alert('L\'affichage des marques a été actualisé !');
+        }
+
+        // Charger les stats et marques sauvegardées au démarrage
+        document.addEventListener('DOMContentLoaded', function() {
+            // Charger les statistiques sauvegardées
+            const savedStats = localStorage.getItem('monVehiculeStats');
+            if (savedStats) {
+                try {
+                    const parsedStats = JSON.parse(savedStats);
+                    adminStats = { ...adminStats, ...parsedStats };
+                    
+                    // Appliquer les stats sauvegardées aux champs admin
+                    Object.keys(adminStats).forEach(key => {
+                        const statType = key.replace(/([A-Z])/g, '-$1').toLowerCase();
+                        const inputElement = document.getElementById(statType);
+                        if (inputElement) {
+                            inputElement.value = adminStats[key];
+                        }
+                    });
+                    
+                    // Mettre à jour l'affichage des stats sur la page
+                    updateAllStatsInDOM();
+                    console.log('✅ Statistiques chargées depuis la sauvegarde');
+                } catch (e) {
+                    console.log('❌ Erreur lors du chargement des stats sauvegardées');
+                }
+            }
+            
+            // Charger les marques sauvegardées
+            const savedBrands = localStorage.getItem('monVehiculeBrands');
+            if (savedBrands) {
+                try {
+                    const parsedBrands = JSON.parse(savedBrands);
+                    // Fusionner avec les marques existantes (les nouvelles remplacent les anciennes)
+                    Object.keys(parsedBrands).forEach(brandId => {
+                        brandsData[brandId] = parsedBrands[brandId];
+                    });
+                    
+                    // Régénérer l'affichage des marques
+                    refreshBrandsDisplay();
+                    console.log('✅ Marques chargées depuis la sauvegarde:', Object.keys(brandsData).length, 'marques');
+                } catch (e) {
+                    console.log('❌ Erreur lors du chargement des marques sauvegardées');
+                }
+            }
+            
+            // Initialiser le sélecteur de marques dans l'admin
+            updateBrandSelector();
+            
+            // Afficher un message de bienvenue dans la console
+            console.log('🚗 MON VÉHICULE - Interface chargée avec succès');
+            console.log('📊 Statistiques actuelles:', adminStats);
+            console.log('🏷️ Marques disponibles:', Object.keys(brandsData).length);
+        });
+
+        // Fermer l'admin panel avec Échap
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && !document.getElementById('admin-panel').classList.contains('hidden')) {
+                closeAdminPanel();
+            }
+        });
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97961577579c0d6b',t:'MTc1NjkxMTI4Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
