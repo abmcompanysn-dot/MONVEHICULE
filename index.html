@@ -2895,68 +2895,184 @@ Merci de confirmer ce rendez-vous ! 🙏`;
             });
         });
 
-        // INTERFACE ADMIN - Raccourci Ctrl+Alt+H
+            </footer>
+
+    <script>
+        // Base de données des marques et modèles. "let" est utilisé pour permettre la modification.
+        let brandsData = {
+            toyota: {
+                "name": "Toyota",
+                "description": "✨ Fiabilité japonaise ✨",
+                models: [
+                    "Corolla", "Camry", "RAV4", "Highlander", "Land Cruiser", "Prado", 
+                    "Hilux", "Yaris", "Prius", "Avensis", "Auris", "Verso", "Fortuner"
+            },
+            mercedes: {
+                "name": "Mercedes-Benz",
+                "description": "Luxe allemand",
+                models: [
+                    "Classe A", "Classe B", "Classe C", "Classe E", "Classe S", "CLA", 
+                    "CLS", "GLA", "GLB", "GLC", "GLE", "GLS", "Sprinter", "Vito"
+            },
+            bmw: {
+                "name": "BMW",
+                "description": "Plaisir de conduire",
+                models: [
+                    "Série 1", "Série 2", "Série 3", "Série 4", "Série 5", "Série 7", 
+                    "X1", "X2", "X3", "X4", "X5", "X6", "X7", "Z4", "i3", "i8"
+            },
+            audi: {
+                "name": "Audi",
+                "description": "Technologie avancée",
+                models: [
+                    "A1", "A3", "A4", "A5", "A6", "A7", "A8", "Q2", "Q3", "Q5", 
+                    "Q7", "Q8", "TT", "R8", "e-tron"
+            },
+            volkswagen: {
+                "name": "Volkswagen",
+                "description": "Qualité allemande",
+                models: [
+                    "Polo", "Golf", "Jetta", "Passat", "Arteon", "Tiguan", "Touareg", 
+                    "T-Cross", "T-Roc", "Sharan", "Touran", "Caddy", "Crafter"
+            },
+            peugeot: {
+                "name": "Peugeot",
+                "description": "Élégance française",
+                models: [
+                    "208", "308", "508", "2008", "3008", "5008", "Partner", "Expert", 
+                    "Boxer", "Rifter", "Traveller", "e-208", "e-2008"
+            },
+            renault: {
+                "name": "Renault",
+                "description": "Innovation française",
+                models: [
+                    "Clio", "Megane", "Talisman", "Captur", "Kadjar", "Koleos", 
+                    "Duster", "Kangoo", "Master", "Trafic", "Zoe", "Twingo"
+            },
+            nissan: {
+                "name": "Nissan",
+                "description": "Innovation japonaise",
+                models: [
+                    "Micra", "Sentra", "Altima", "Maxima", "Juke", "Qashqai", "X-Trail", 
+                    "Pathfinder", "Patrol", "Navara", "NV200", "e-NV200", "Leaf"
+            },
+            honda: {
+                "name": "Honda",
+                "description": "Fiabilité éprouvée",
+                models: [
+                    "City", "Civic", "Accord", "HR-V", "CR-V", "Pilot", "Ridgeline", 
+                    "Fit", "Insight", "Odyssey", "Passport"
+            },
+            hyundai: {
+                "name": "Hyundai",
+                "description": "Modernité coréenne",
+                models: [
+                    "i10", "i20", "i30", "Elantra", "Sonata", "Kona", "Tucson", 
+                    "Santa Fe", "Palisade", "H1", "H100", "Ioniq"
+            },
+            kia: {
+                "name": "Kia",
+                "description": "Design audacieux",
+                models: [
+                    "Picanto", "Rio", "Cerato", "Optima", "Stinger", "Stonic", "Sportage", 
+                    "Sorento", "Telluride", "Soul", "Niro", "EV6"
+            },
+            ford: {
+                "name": "Ford",
+                "description": "Héritage américain",
+                models: [
+                    "Fiesta", "Focus", "Mondeo", "Mustang", "EcoSport", "Kuga", "Edge", 
+                    "Explorer", "F-150", "Ranger", "Transit", "Tourneo"
+            },
+            chevrolet: {
+                "name": "Chevrolet",
+                "description": "Puissance américaine",
+                models: [
+                    "Spark", "Aveo", "Cruze", "Malibu", "Camaro", "Corvette", "Trax", 
+                    "Equinox", "Traverse", "Tahoe", "Silverado", "Colorado"
+                ]
+            },
+            mitsubishi: {
+                "name": "Mitsubishi",
+                "description": "Robustesse japonaise",
+                models: [
+                    "Mirage", "Lancer", "Eclipse Cross", "ASX", "Outlander", "Pajero", 
+                    "L200", "Canter", "i-MiEV"
+                ]
+            },
+            suzuki: {
+                "name": "Suzuki",
+                "description": "Compacité efficace",
+                models: [
+                    "Alto", "Swift", "Baleno", "Ciaz", "Ignis", "S-Cross", "Vitara", 
+                    "Jimny", "Ertiga", "XL7", "APV", "Carry"
+            
+            document.getElementById('brand-title').textContent = brandData.name;
+            
+            const content = document.getElementById('brand-content'); 
+            content.innerHTML = `
+                <div class="col-span-full mb-6">
+                    <p class="text-lg text-gray-600 text-center">${brandData.description}</p>
+            });
+        });
+
+        // =================================================================================
+        // ============================ INTERFACE ADMIN ====================================
+        // =================================================================================
+        // Raccourci pour ouvrir : Ctrl + Alt + H
+
         let adminStats = {
             yearsExperience: 15,
             modelsAvailable: 500,
             partnerCompanies: 1000,
             partnerBrands: 25,
             satisfactionRate: 98,
-            responseTime: 24,
-            successRate: 100
+            responseTime: 24, 
+            successRate: 100 
         };
 
-        // Raccourci clavier pour ouvrir l'interface admin
         document.addEventListener('keydown', function(e) {
             if (e.ctrlKey && e.altKey && e.key === 'h') {
                 e.preventDefault();
                 openAdminPanel();
             }
-        });
+        }); 
 
-        // Fonctions de l'interface admin
         function openAdminPanel() {
             document.getElementById('admin-panel').classList.remove('hidden');
             document.body.style.overflow = 'hidden';
             updateTrafficStats();
-        }
+        } 
 
         function closeAdminPanel() {
             document.getElementById('admin-panel').classList.add('hidden');
             document.body.style.overflow = 'auto';
-        }
+        } 
 
         function updateTrafficStats() {
-            // Simulation de données de trafic réalistes
-            const today = new Date();
             const baseVisitors = 150 + Math.floor(Math.random() * 200);
-            
             document.getElementById('visitors-today').textContent = baseVisitors.toLocaleString();
             document.getElementById('visitors-week').textContent = (baseVisitors * 7 + Math.floor(Math.random() * 500)).toLocaleString();
             document.getElementById('visitors-month').textContent = (baseVisitors * 30 + Math.floor(Math.random() * 2000)).toLocaleString();
             document.getElementById('total-visitors').textContent = (baseVisitors * 365 + Math.floor(Math.random() * 10000)).toLocaleString();
-        }
+        } 
 
         function updateStat(statType) {
             const inputElement = document.getElementById(statType);
             const newValue = parseInt(inputElement.value);
-            
-            // Mapping des types de stats
             const statMapping = {
                 'years-experience': { key: 'yearsExperience', targets: ['[data-target="15"]', '[data-target="5"]'] },
                 'models-available': { key: 'modelsAvailable', targets: ['[data-target="500"]'] },
                 'satisfied-clients': { key: 'partnerCompanies', targets: ['[data-target="1000"]'] },
                 'partner-brands': { key: 'partnerBrands', targets: ['[data-target="25"]'] },
                 'satisfaction-rate': { key: 'satisfactionRate', targets: ['[data-target="98"]'] },
-                'response-time': { key: 'responseTime', targets: ['[data-target="24"]'] },
-                'success-rate': { key: 'successRate', targets: ['[data-target="100"]'] }
+                'response-time': { key: 'responseTime', targets: ['[data-target="24"]'] }, 
+                'success-rate': { key: 'successRate', targets: ['[data-target="100"]'] } 
             };
 
             if (statMapping[statType]) {
                 const mapping = statMapping[statType];
                 adminStats[mapping.key] = newValue;
-                
-                // Mettre à jour tous les éléments correspondants sur la page
                 mapping.targets.forEach(selector => {
                     const elements = document.querySelectorAll(selector);
                     elements.forEach(element => {
@@ -2964,11 +3080,7 @@ Merci de confirmer ce rendez-vous ! 🙏`;
                         element.textContent = newValue + (newValue > 99 && statType !== 'satisfaction-rate' && statType !== 'response-time' && statType !== 'success-rate' ? '+' : '');
                     });
                 });
-
-                // Ajouter au log
                 addToLog(`${getStatDisplayName(statType)} mis à jour: ${newValue}`);
-                
-                // Animation de confirmation
                 inputElement.style.backgroundColor = '#10B981';
                 inputElement.style.color = 'white';
                 setTimeout(() => {
@@ -2976,174 +3088,118 @@ Merci de confirmer ce rendez-vous ! 🙏`;
                     inputElement.style.color = '';
                 }, 1000);
             }
-        }
+        } 
 
         function getStatDisplayName(statType) {
             const names = {
-                'years-experience': 'Années d\'expérience',
-                'models-available': 'Modèles disponibles',
-                'satisfied-clients': 'Entreprises partenaires',
                 'partner-brands': 'Marques partenaires',
                 'satisfaction-rate': 'Taux de satisfaction',
                 'response-time': 'Temps de réponse',
-                'success-rate': 'Taux de réussite'
+                'success-rate': 'Taux de réussite' 
             };
             return names[statType] || statType;
-        }
+        } 
 
         function resetAllStats() {
             if (confirm('Êtes-vous sûr de vouloir réinitialiser toutes les statistiques ?')) {
-                adminStats = {
-                    yearsExperience: 5,
-                    modelsAvailable: 200,
-                    partnerCompanies: 500,
                     partnerBrands: 15,
                     satisfactionRate: 95,
                     responseTime: 48,
-                    successRate: 98
+                    successRate: 98 
                 };
-
-                // Réinitialiser les champs
                 document.getElementById('years-experience').value = 5;
                 document.getElementById('models-available').value = 200;
                 document.getElementById('satisfied-clients').value = 500;
                 document.getElementById('partner-brands').value = 15;
                 document.getElementById('satisfaction-rate').value = 95;
                 document.getElementById('response-time').value = 48;
-                document.getElementById('success-rate').value = 98;
+                document.getElementById('success-rate').value = 98; 
 
-                // Mettre à jour la page
                 Object.keys(adminStats).forEach(key => {
                     const statType = key.replace(/([A-Z])/g, '-$1').toLowerCase();
                     updateStat(statType);
                 });
-
                 addToLog('Toutes les statistiques ont été réinitialisées');
                 alert('Statistiques réinitialisées avec succès !');
             }
-        }
+        } 
 
         function exportStats() {
             const data = {
-                stats: adminStats,
-                brands: brandsData,
-                exportDate: new Date().toISOString(),
-                traffic: {
-                    today: document.getElementById('visitors-today').textContent,
-                    week: document.getElementById('visitors-week').textContent,
-                    month: document.getElementById('visitors-month').textContent,
-                    total: document.getElementById('total-visitors').textContent
-                },
                 metadata: {
                     totalBrands: Object.keys(brandsData).length,
                     totalModels: Object.values(brandsData).reduce((total, brand) => total + brand.models.length, 0),
-                    version: '2.0',
-                    lastModified: new Date().toISOString()
+                    version: '2.0', 
+                    lastModified: new Date().toISOString() 
                 }
             };
 
             const dataStr = JSON.stringify(data, null, 2);
             const dataBlob = new Blob([dataStr], {type: 'application/json'});
             const url = URL.createObjectURL(dataBlob);
-            
             const link = document.createElement('a');
             link.href = url;
             link.download = `mon-vehicule-backup-${new Date().toISOString().split('T')[0]}.json`;
             link.click();
-            
             URL.revokeObjectURL(url);
             addToLog(`Sauvegarde complète exportée: ${Object.keys(brandsData).length} marques, ${Object.values(brandsData).reduce((total, brand) => total + brand.models.length, 0)} modèles`);
-            
             alert(`✅ Sauvegarde exportée avec succès !\n\n📊 ${Object.keys(brandsData).length} marques\n🚗 ${Object.values(brandsData).reduce((total, brand) => total + brand.models.length, 0)} modèles au total`);
-        }
+        } 
 
+        /**
+         * Génère un nouveau fichier HTML avec les données mises à jour et le propose au téléchargement.
+         * C'est la méthode pour "sauvegarder" les modifications dans le code source.
+         */
         function saveChanges() {
-            // Sauvegarder les statistiques et les marques dans le localStorage ET dans le code source
-            localStorage.setItem('monVehiculeStats', JSON.stringify(adminStats));
-            localStorage.setItem('monVehiculeBrands', JSON.stringify(brandsData));
-            
-            // Mettre à jour le code source avec les nouvelles données
-            updateSourceCode();
-            
-            addToLog('Modifications sauvegardées dans le code source');
-            
-            // Animation de confirmation
-            const saveBtn = event.target;
-            const originalText = saveBtn.textContent;
-            saveBtn.textContent = '✅ Sauvegardé dans le code !';
-            saveBtn.style.backgroundColor = '#10B981';
-            
-            setTimeout(() => {
-                saveBtn.textContent = originalText;
-                saveBtn.style.backgroundColor = '';
-            }, 3000);
+            if (!confirm("Cela va générer un nouveau fichier HTML avec toutes vos modifications.\n\nVous devrez remplacer manuellement votre fichier actuel par celui-ci.\n\nContinuer ?")) {
+                return;
+            }
+
+            const updatedHTML = generateUpdatedHTML();
+            const blob = new Blob([updatedHTML], { type: 'text/html' });
+            const link = document.createElement('a');
+            link.href = URL.createObjectURL(blob);
+            link.download = 'Untitled-1.html';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            URL.revokeObjectURL(link.href);
+
+            addToLog('Fichier HTML mis à jour et téléchargé.');
+            alert('Le fichier mis à jour a été téléchargé ! Remplacez votre ancien fichier `Untitled-1.html` par celui-ci.');
         }
 
-        function updateSourceCode() {
-            // Cette fonction met à jour les données directement dans le code source
-            // Les modifications sont maintenant persistantes et synchronisées
-            
-            // Mettre à jour les statistiques dans les éléments HTML
-            updateAllStatsInDOM();
-            
-            // Mettre à jour la base de données des marques
-            updateBrandsInSource();
-            
-            // Régénérer l'affichage complet
-            refreshBrandsDisplay();
-            
-            console.log('✅ Code source mis à jour avec les nouvelles données');
-        }
+        /**
+         * Construit la chaîne de caractères du nouveau fichier HTML.
+         */
+        function generateUpdatedHTML() {
+            let currentHtml = document.documentElement.outerHTML;
+            const newBrandsDataString = `let brandsData = ${JSON.stringify(brandsData, null, 4)};`;
+            const newAdminStatsString = `let adminStats = ${JSON.stringify(adminStats, null, 4)};`;
+            const brandsDataRegex = /(?:const|let)\s+brandsData\s*=\s*\{[\s\S]*?\};/;
+            const adminStatsRegex = /let\s+adminStats\s*=\s*\{[\s\S]*?\};/;
 
-        function updateAllStatsInDOM() {
-            // Mettre à jour toutes les statistiques affichées sur la page
-            const statMappings = {
-                yearsExperience: ['[data-target="15"]', '[data-target="5"]'],
-                modelsAvailable: ['[data-target="500"]'],
-                partnerCompanies: ['[data-target="1000"]'],
-                partnerBrands: ['[data-target="25"]'],
-                satisfactionRate: ['[data-target="98"]'],
-                responseTime: ['[data-target="24"]'],
-                successRate: ['[data-target="100"]']
-            };
+            currentHtml = currentHtml.replace(brandsDataRegex, newBrandsDataString);
+            currentHtml = currentHtml.replace(adminStatsRegex, newAdminStatsString);
 
-            Object.keys(statMappings).forEach(statKey => {
-                const value = adminStats[statKey];
-                statMappings[statKey].forEach(selector => {
-                    const elements = document.querySelectorAll(selector);
-                    elements.forEach(element => {
-                        element.setAttribute('data-target', value);
-                        element.textContent = value + (value > 99 && !['satisfactionRate', 'responseTime', 'successRate'].includes(statKey) ? '+' : '');
-                    });
-                });
-            });
-        }
-
-        function updateBrandsInSource() {
-            // Les données des marques sont maintenant synchronisées avec brandsData
-            // Toutes les modifications sont automatiquement reflétées
-            console.log('📊 Base de données des marques synchronisée:', Object.keys(brandsData).length, 'marques');
-        }
+            return '<!DOCTYPE html>\n' + currentHtml;
+        } 
 
         function addToLog(message) {
             const log = document.getElementById('modification-log');
             const now = new Date();
             const timeStr = now.toLocaleTimeString('fr-FR', { hour: '2-digit', minute: '2-digit' });
-            
             const logEntry = document.createElement('div');
             logEntry.className = 'flex justify-between';
             logEntry.innerHTML = `
                 <span>${message}</span>
                 <span class="text-gray-400">Aujourd'hui ${timeStr}</span>
             `;
-            
             log.insertBefore(logEntry, log.firstChild);
-            
-            // Limiter à 20 entrées
             while (log.children.length > 20) {
                 log.removeChild(log.lastChild);
             }
-        }
+        } 
 
         // GESTION DES MARQUES ET MODÈLES
         let currentSelectedBrand = '';
@@ -3151,284 +3207,154 @@ Merci de confirmer ce rendez-vous ! 🙏`;
         function addNewBrand() {
             const nameInput = document.getElementById('new-brand-name');
             const descriptionInput = document.getElementById('new-brand-description');
-            
             const name = nameInput.value.trim();
             const description = descriptionInput.value.trim();
-            
             if (!name || !description) {
                 alert('Veuillez remplir tous les champs pour ajouter une marque.');
                 return;
             }
-            
-            // Créer l'ID de la marque (en minuscules, sans espaces)
             const brandId = name.toLowerCase().replace(/[^a-z0-9]/g, '');
-            
-            // Vérifier si la marque existe déjà
             if (brandsData[brandId]) {
                 alert('Cette marque existe déjà !');
                 return;
             }
-            
-            // Ajouter la nouvelle marque
             brandsData[brandId] = {
                 name: name,
                 description: description,
-                models: []
+                models: [] 
             };
-            
-            // Sauvegarder automatiquement dans le code source
-            autoSaveToSource();
-            
-            // Vider les champs
-            nameInput.value = '';
-            descriptionInput.value = '';
-            
-            // Mettre à jour l'affichage
             updateBrandSelector();
             refreshBrandsDisplay();
-            addToLog(`Nouvelle marque ajoutée et sauvegardée: ${name}`);
-            
-            alert(`Marque "${name}" ajoutée et sauvegardée avec succès !`);
-        }
+            addToLog(`Nouvelle marque ajoutée: ${name}. N'oubliez pas de sauvegarder.`);
+            alert(`Marque "${name}" ajoutée. Cliquez sur "Sauvegarder les modifications" pour générer le nouveau fichier.`);
+            nameInput.value = '';
+            descriptionInput.value = '';
+        } 
 
         function updateBrandSelector() {
             const selector = document.getElementById('brand-selector');
             selector.innerHTML = '<option value="">Choisir une marque...</option>';
-            
-            Object.keys(brandsData).forEach(brandId => {
+            Object.keys(brandsData).sort((a, b) => brandsData[a].name.localeCompare(brandsData[b].name)).forEach(brandId => {
                 const option = document.createElement('option');
                 option.value = brandId;
                 option.textContent = brandsData[brandId].name;
                 selector.appendChild(option);
             });
-        }
+        } 
 
         function loadBrandForEdit() {
             const selector = document.getElementById('brand-selector');
             const selectedBrand = selector.value;
             const editSection = document.getElementById('brand-edit-section');
-            
             if (!selectedBrand) {
                 editSection.classList.add('hidden');
                 return;
             }
-            
             currentSelectedBrand = selectedBrand;
             const brandData = brandsData[selectedBrand];
-            
             document.getElementById('current-brand-name').textContent = brandData.name;
             editSection.classList.remove('hidden');
-            
             loadModelsList();
-        }
+        } 
 
         function loadModelsList() {
             const modelsList = document.getElementById('models-list');
             const brandData = brandsData[currentSelectedBrand];
-            
             modelsList.innerHTML = '';
-            
-            brandData.models.forEach((model, index) => {
+            brandData.models.sort().forEach(model => {
                 const modelDiv = document.createElement('div');
                 modelDiv.className = 'flex justify-between items-center bg-white p-3 rounded-lg border';
                 modelDiv.innerHTML = `
                     <span class="font-medium text-gray-900">${model}</span>
-                    <button onclick="deleteModel(${index})" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors text-sm">
+                    <button onclick="deleteModel('${model}')" class="bg-red-500 text-white px-3 py-1 rounded hover:bg-red-600 transition-colors text-sm">
                         🗑️ Supprimer
                     </button>
                 `;
                 modelsList.appendChild(modelDiv);
             });
-            
             if (brandData.models.length === 0) {
                 modelsList.innerHTML = '<p class="text-gray-500 text-center py-4">Aucun modèle pour cette marque</p>';
             }
-        }
+        } 
 
         function addModelToBrand() {
             const modelInput = document.getElementById('new-model-name');
             const modelName = modelInput.value.trim();
-            
             if (!modelName) {
                 alert('Veuillez entrer le nom du modèle.');
                 return;
             }
-            
             if (!currentSelectedBrand) {
                 alert('Veuillez sélectionner une marque d\'abord.');
                 return;
             }
-            
             const brandData = brandsData[currentSelectedBrand];
-            
-            // Vérifier si le modèle existe déjà
-            if (brandData.models.includes(modelName)) {
+            if (brandData.models.map(m => m.toLowerCase()).includes(modelName.toLowerCase())) {
                 alert('Ce modèle existe déjà pour cette marque !');
                 return;
             }
-            
-            // Ajouter le modèle
             brandData.models.push(modelName);
-            
-            // Sauvegarder automatiquement
-            autoSaveToSource();
-            
-            // Vider le champ
             modelInput.value = '';
-            
-            // Recharger la liste et l'affichage
             loadModelsList();
             refreshBrandsDisplay();
-            
-            addToLog(`Modèle "${modelName}" ajouté à ${brandData.name} et sauvegardé`);
-        }
+            addToLog(`Modèle "${modelName}" ajouté à ${brandData.name}. N'oubliez pas de sauvegarder.`);
+        } 
 
-        function autoSaveToSource() {
-            // Sauvegarde automatique dans le localStorage (persistance)
-            localStorage.setItem('monVehiculeStats', JSON.stringify(adminStats));
-            localStorage.setItem('monVehiculeBrands', JSON.stringify(brandsData));
-            
-            // Mettre à jour le code source en temps réel
-            updateSourceCode();
-            
-            console.log('💾 Sauvegarde automatique effectuée');
-        }
-
-        function deleteModel(modelIndex) {
+        function deleteModel(modelName) {
             const brandData = brandsData[currentSelectedBrand];
-            const modelName = brandData.models[modelIndex];
-            
-            if (confirm(`Êtes-vous sûr de vouloir supprimer le modèle "${modelName}" ?`)) {
+            const modelIndex = brandData.models.findIndex(m => m === modelName);
+            if (modelIndex > -1 && confirm(`Êtes-vous sûr de vouloir supprimer le modèle "${modelName}" ?`)) {
                 brandData.models.splice(modelIndex, 1);
-                
-                // Sauvegarder automatiquement
-                autoSaveToSource();
-                
-                // Recharger l'affichage
                 loadModelsList();
                 refreshBrandsDisplay();
-                
-                addToLog(`Modèle "${modelName}" supprimé de ${brandData.name} et sauvegardé`);
+                addToLog(`Modèle "${modelName}" supprimé de ${brandData.name}. N'oubliez pas de sauvegarder.`);
             }
-        }
+        } 
 
         function deleteBrand() {
             if (!currentSelectedBrand) {
                 alert('Veuillez sélectionner une marque à supprimer.');
                 return;
             }
-            
             const brandData = brandsData[currentSelectedBrand];
-            
             if (confirm(`Êtes-vous sûr de vouloir supprimer complètement la marque "${brandData.name}" et tous ses modèles ?`)) {
                 delete brandsData[currentSelectedBrand];
-                
-                // Sauvegarder automatiquement
-                autoSaveToSource();
-                
-                // Réinitialiser l'interface
                 document.getElementById('brand-selector').value = '';
                 document.getElementById('brand-edit-section').classList.add('hidden');
                 updateBrandSelector();
                 refreshBrandsDisplay();
-                
-                addToLog(`Marque "${brandData.name}" supprimée et sauvegardée`);
-                alert(`Marque "${brandData.name}" supprimée et sauvegardée avec succès !`);
-                
+                addToLog(`Marque "${brandData.name}" supprimée. N'oubliez pas de sauvegarder.`);
+                alert(`Marque "${brandData.name}" supprimée. Cliquez sur "Sauvegarder les modifications" pour générer le nouveau fichier.`);
                 currentSelectedBrand = '';
             }
-        }
+        } 
 
         function refreshBrandsDisplay() {
-            // Régénérer la grille des marques sur la page principale
             const brandsGrid = document.getElementById('brands-grid');
             brandsGrid.innerHTML = '';
-            
-            Object.keys(brandsData).forEach(brandId => {
+            Object.keys(brandsData).sort((a, b) => brandsData[a].name.localeCompare(brandsData[b].name)).forEach(brandId => {
                 const brandData = brandsData[brandId];
                 const brandCard = document.createElement('div');
                 brandCard.className = 'car-card crystal-effect luxury-border rounded-3xl overflow-hidden shadow-lg cursor-pointer particle-burst luxury-reveal';
                 brandCard.onclick = () => openBrandModal(brandId);
-                
                 brandCard.innerHTML = `
                     <div class="h-32 bg-gradient-to-br from-gray-700 to-gray-900 flex items-center justify-center relative">
-                        <div class="golden-sparkles">
-                            <div class="sparkle sparkle-1"></div>
-                            <div class="sparkle sparkle-3"></div>
-                        </div>
                         <svg class="w-16 h-16 text-white" viewBox="0 0 100 100" fill="currentColor">
                             <circle cx="50" cy="50" r="35" fill="none" stroke="currentColor" stroke-width="3"/>
                             <text x="50" y="55" text-anchor="middle" font-size="12" font-weight="bold">${brandData.name.substring(0, 8).toUpperCase()}</text>
-                        </svg>
-                    </div>
-                    <div class="p-4 text-center">
-                        <h3 class="text-lg font-bold text-gray-900 holographic-text">${brandData.name}</h3>
-                        <p class="text-sm text-gray-600">${brandData.description}</p>
                         <p class="text-xs text-gray-500 mt-1">${brandData.models.length} modèles</p>
                     </div>
                 `;
-                
                 brandsGrid.appendChild(brandCard);
             });
-            
             addToLog('Affichage des marques actualisé');
-            alert('L\'affichage des marques a été actualisé !');
-        }
+        } 
 
-        // Charger les stats et marques sauvegardées au démarrage
         document.addEventListener('DOMContentLoaded', function() {
-            // Charger les statistiques sauvegardées
-            const savedStats = localStorage.getItem('monVehiculeStats');
-            if (savedStats) {
-                try {
-                    const parsedStats = JSON.parse(savedStats);
-                    adminStats = { ...adminStats, ...parsedStats };
-                    
-                    // Appliquer les stats sauvegardées aux champs admin
-                    Object.keys(adminStats).forEach(key => {
-                        const statType = key.replace(/([A-Z])/g, '-$1').toLowerCase();
-                        const inputElement = document.getElementById(statType);
-                        if (inputElement) {
-                            inputElement.value = adminStats[key];
-                        }
-                    });
-                    
-                    // Mettre à jour l'affichage des stats sur la page
-                    updateAllStatsInDOM();
-                    console.log('✅ Statistiques chargées depuis la sauvegarde');
-                } catch (e) {
-                    console.log('❌ Erreur lors du chargement des stats sauvegardées');
-                }
-            }
-            
-            // Charger les marques sauvegardées
-            const savedBrands = localStorage.getItem('monVehiculeBrands');
-            if (savedBrands) {
-                try {
-                    const parsedBrands = JSON.parse(savedBrands);
-                    // Fusionner avec les marques existantes (les nouvelles remplacent les anciennes)
-                    Object.keys(parsedBrands).forEach(brandId => {
-                        brandsData[brandId] = parsedBrands[brandId];
-                    });
-                    
-                    // Régénérer l'affichage des marques
-                    refreshBrandsDisplay();
-                    console.log('✅ Marques chargées depuis la sauvegarde:', Object.keys(brandsData).length, 'marques');
-                } catch (e) {
-                    console.log('❌ Erreur lors du chargement des marques sauvegardées');
-                }
-            }
-            
-            // Initialiser le sélecteur de marques dans l'admin
             updateBrandSelector();
-            
-            // Afficher un message de bienvenue dans la console
             console.log('🚗 MON VÉHICULE - Interface chargée avec succès');
-            console.log('📊 Statistiques actuelles:', adminStats);
-            console.log('🏷️ Marques disponibles:', Object.keys(brandsData).length);
         });
 
-        // Fermer l'admin panel avec Échap
         document.addEventListener('keydown', function(e) {
             if (e.key === 'Escape' && !document.getElementById('admin-panel').classList.contains('hidden')) {
                 closeAdminPanel();
@@ -3436,4 +3362,8 @@ Merci de confirmer ce rendez-vous ! 🙏`;
         });
     </script>
 <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97961577579c0d6b',t:'MTc1NjkxMTI4Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+
+
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97961577579c0d6b',t:'MTc1NjkxMTI4Mi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
+
