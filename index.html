@@ -2838,7 +2838,7 @@ Merci de confirmer ce rendez-vous ! 🙏`;
         }
 
         function refreshBrandsDisplay() {
-            // Régénérer la grille des marques sur la page principale
+            // Régénère la grille des marques sur la page principale et attache les événements.
             const brandsGrid = document.getElementById('brands-grid');
             brandsGrid.innerHTML = '';
             
@@ -2868,8 +2868,6 @@ Merci de confirmer ce rendez-vous ! 🙏`;
                 
                 brandsGrid.appendChild(brandCard);
             });
-            
-            alert('L\'affichage des marques a été actualisé !');
         }
 
         // Charger les stats et marques sauvegardées au démarrage
@@ -2880,18 +2878,17 @@ Merci de confirmer ce rendez-vous ! 🙏`;
                 try {
                     const parsedBrands = JSON.parse(savedBrands);
                     // Fusionner avec les marques existantes (les nouvelles remplacent les anciennes)
-                    Object.keys(parsedBrands).forEach(brandId => {
-                        brandsData[brandId] = parsedBrands[brandId];
-                    });
-                    
-                    // Régénérer l'affichage des marques
-                    refreshBrandsDisplay();
-                    console.log('✅ Marques chargées depuis la sauvegarde:', Object.keys(brandsData).length, 'marques');
+                    Object.assign(brandsData, parsedBrands);
+                    console.log('✅ Marques chargées et fusionnées depuis la sauvegarde locale.');
                 } catch (e) {
-                    console.log('❌ Erreur lors du chargement des marques sauvegardées');
+                    console.error('❌ Erreur lors du chargement des marques sauvegardées:', e);
                 }
             }
             
+            // Toujours régénérer l'affichage des marques pour s'assurer que les `onclick` sont attachés.
+            // C'est la correction clé pour le fichier téléchargé.
+            refreshBrandsDisplay();
+
             // Initialiser le sélecteur de marques dans l'admin
             updateBrandSelector();
             
