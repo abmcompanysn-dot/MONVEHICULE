@@ -2137,6 +2137,38 @@
         </div>
     </div>
 
+    <!-- Modale Favoris -->
+    <div id="favorites-modal" class="modal">
+        <div class="modal-content">
+            <div class="p-8">
+                <div class="flex justify-between items-center mb-6">
+                    <h2 class="text-3xl font-bold text-gray-900">Mes Favoris</h2>
+                    <button onclick="closeFavoritesModal()" class="text-gray-500 hover:text-gray-700 text-2xl">✕</button>
+                </div>
+                <div id="favorites-list" class="space-y-3 max-h-[60vh] overflow-y-auto pr-4">
+                    <!-- La liste des favoris sera générée ici -->
+                </div>
+                <div class="mt-8 text-center">
+                    <p id="no-favorites-message" class="text-gray-500 hidden">Vous n'avez pas encore de favoris.</p>
+                    <button id="contact-favorites-btn" class="luxury-btn px-8 py-3 hidden" onclick="contactFavoritesWhatsApp()">
+                        💬 Demander des infos pour la sélection
+                    </button>
+                    <button id="clear-favorites-btn" class="bg-red-500 text-white px-6 py-3 rounded-full mt-4 text-sm hover:bg-red-600 transition-colors hidden" onclick="clearFavorites()">
+                        🗑️ Vider les favoris
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bouton Favoris flottant -->
+    <div class="fixed bottom-24 right-6 z-50">
+        <button onclick="openFavoritesModal()" aria-label="Voir les favoris" class="bg-yellow-500 text-white p-4 rounded-full shadow-lg transition-all transform hover:scale-110 relative">
+            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z"></path></svg>
+            <span id="favorites-count" class="absolute -top-1 -right-1 bg-red-600 text-white text-xs font-bold rounded-full h-6 w-6 flex items-center justify-center border-2 border-yellow-500 hidden">0</span>
+        </button>
+    </div>
+
     <!-- Bouton WhatsApp flottant -->
     <div class="fixed bottom-6 right-6 z-50">
         <button onclick="openWhatsApp()" class="whatsapp-btn text-white p-4 rounded-full shadow-lg transition-all transform hover:scale-110">
@@ -2312,6 +2344,7 @@
         };
 
         let currentBrand = '';
+        let favorites = [];
 
         // Navigation fluide
         function scrollTo(sectionId) {
@@ -2332,8 +2365,15 @@
                 <div class="col-span-full mb-6">
                     <p class="text-lg text-gray-600 text-center">${brandData.description}</p>
                 </div>
-                ${brandData.models.map(model => `
-                    <div class="model-card rounded-xl p-4 text-center">
+                ${brandData.models.map(model => {
+                    const isFav = isFavorite(brand, model);
+                    return `
+                    <div class="model-card rounded-xl p-4 text-center relative">
+                        <button onclick="toggleFavorite(event, '${brand}', '${model}')" 
+                                title="${isFav ? 'Retirer des favoris' : 'Ajouter aux favoris'}"
+                                class="absolute top-2 right-2 p-1 rounded-full transition-colors ${isFav ? 'text-yellow-400 hover:text-yellow-500' : 'text-gray-400 hover:text-yellow-400'}">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27z"/></svg>
+                        </button>
                         <div class="w-12 h-12 gold-gradient rounded-full flex items-center justify-center mx-auto mb-2">
                             <svg class="w-6 h-6 text-black" fill="currentColor" viewBox="0 0 24 24">
                                 <path d="M18.92 6.01C18.72 5.42 18.16 5 17.5 5h-11c-.66 0-1.22.42-1.42 1.01L3 12v8c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-1h12v1c0 .55.45 1 1 1h1c.55 0 1-.45 1-1v-8l-2.08-5.99zM6.5 16c-.83 0-1.5-.67-1.5-1.5S5.67 13 6.5 13s1.5.67 1.5 1.5S7.33 16 6.5 16zm11 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zM5 11l1.5-4.5h11L19 11H5z"/>
@@ -2345,7 +2385,7 @@
                             💬 Demander info
                         </button>
                     </div>
-                `).join('')}
+                `}).join('')}
             `;
             
             document.getElementById('brand-modal').classList.add('show');
@@ -2355,6 +2395,11 @@
         // Fermer la modale de marque
         function closeBrandModal() {
             document.getElementById('brand-modal').classList.remove('show');
+            document.body.style.overflow = 'auto';
+        }
+
+        function closeFavoritesModal() {
+            document.getElementById('favorites-modal').classList.remove('show');
             document.body.style.overflow = 'auto';
         }
 
@@ -2538,6 +2583,7 @@ Merci de confirmer ce rendez-vous ! 🙏`;
                 closeModal();
                 closeContactModal();
                 closeBrandModal();
+                closeFavoritesModal();
             }
         });
 
@@ -2619,6 +2665,134 @@ Merci de confirmer ce rendez-vous ! 🙏`;
             });
         });
 
+        // GESTION DES FAVORIS
+        function saveFavorites() {
+            localStorage.setItem('monVehiculeFavorites', JSON.stringify(favorites));
+            updateFavoritesCount();
+        }
+
+        function loadFavorites() {
+            const savedFavorites = localStorage.getItem('monVehiculeFavorites');
+            if (savedFavorites) {
+                favorites = JSON.parse(savedFavorites);
+                updateFavoritesCount();
+            }
+        }
+
+        function updateFavoritesCount() {
+            const countElement = document.getElementById('favorites-count');
+            if (countElement) {
+                countElement.textContent = favorites.length;
+                countElement.classList.toggle('hidden', favorites.length === 0);
+            }
+        }
+
+        function isFavorite(brandId, modelName) {
+            return favorites.some(fav => fav.brandId === brandId && fav.modelName === modelName);
+        }
+
+        function toggleFavorite(event, brandId, modelName) {
+            event.stopPropagation(); // Empêche le clic de se propager aux éléments parents
+
+            const brandData = brandsData[brandId];
+            if (!brandData) return;
+
+            const favoriteIndex = favorites.findIndex(fav => fav.brandId === brandId && fav.modelName === modelName);
+
+            if (favoriteIndex > -1) {
+                favorites.splice(favoriteIndex, 1); // Retirer des favoris
+            } else {
+                favorites.push({ brandId, modelName, brandName: brandData.name }); // Ajouter aux favoris
+            }
+
+            saveFavorites();
+
+            // Mettre à jour l'apparence du bouton directement
+            const button = event.currentTarget;
+            const isFav = favoriteIndex === -1;
+            button.title = isFav ? 'Retirer des favoris' : 'Ajouter aux favoris';
+            button.classList.toggle('text-yellow-400', isFav);
+            button.classList.toggle('text-gray-400', !isFav);
+        }
+
+        function openFavoritesModal() {
+            const modal = document.getElementById('favorites-modal');
+            const list = document.getElementById('favorites-list');
+            const noFavsMsg = document.getElementById('no-favorites-message');
+            const contactBtn = document.getElementById('contact-favorites-btn');
+            const clearBtn = document.getElementById('clear-favorites-btn');
+
+            list.innerHTML = '';
+
+            if (favorites.length === 0) {
+                noFavsMsg.classList.remove('hidden');
+                contactBtn.classList.add('hidden');
+                clearBtn.classList.add('hidden');
+            } else {
+                noFavsMsg.classList.add('hidden');
+                contactBtn.classList.remove('hidden');
+                clearBtn.classList.remove('hidden');
+
+                favorites.forEach(fav => {
+                    const item = document.createElement('div');
+                    item.className = 'flex justify-between items-center bg-gray-100 p-3 rounded-lg shadow-sm';
+                    item.innerHTML = `
+                        <div>
+                            <p class="font-bold text-gray-800">${fav.modelName}</p>
+                            <p class="text-sm text-gray-600">${fav.brandName}</p>
+                        </div>
+                        <button onclick="removeFavorite('${fav.brandId}', '${fav.modelName}')" title="Retirer ce modèle" class="text-red-500 hover:text-red-700 p-1 rounded-full">
+                            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+                        </button>
+                    `;
+                    list.appendChild(item);
+                });
+            }
+
+            modal.classList.add('show');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function removeFavorite(brandId, modelName) {
+            favorites = favorites.filter(fav => !(fav.brandId === brandId && fav.modelName === modelName));
+            saveFavorites();
+            openFavoritesModal(); // Rafraîchir la modale
+        }
+
+        function clearFavorites() {
+            if (confirm('Êtes-vous sûr de vouloir vider votre liste de favoris ?')) {
+                favorites = [];
+                saveFavorites();
+                openFavoritesModal();
+            }
+        }
+
+        function contactFavoritesWhatsApp() {
+            if (favorites.length === 0) {
+                alert("Votre liste de favoris est vide.");
+                return;
+            }
+
+            let modelsList = favorites.map((fav, index) => 
+                `${index + 1}. *Marque:* ${fav.brandName}, *Modèle:* ${fav.modelName}`
+            ).join('\\n');
+
+            const message = `🚗 *Bonjour MON VÉHICULE !*
+
+Je suis intéressé(e) par les modèles suivants de ma liste de favoris :
+
+${modelsList}
+
+Pouvez-vous me donner des informations sur leur disponibilité et leurs prix ?
+
+Merci ! 🙏`;
+
+            const encodedMessage = encodeURIComponent(message);
+            const whatsappNumber = "221769047999";
+            const whatsappURL = `https://wa.me/${whatsappNumber}?text=${encodedMessage}`;
+            window.open(whatsappURL, '_blank');
+        }
+
         // INTERFACE ADMIN - Raccourci Ctrl+Alt+H
         // Raccourci clavier pour ouvrir l'interface admin
         document.addEventListener('keydown', function(e) {
@@ -2647,16 +2821,18 @@ Merci de confirmer ce rendez-vous ! 🙏`;
             // 1. Obtenir le HTML actuel de la page
             let currentHtml = document.documentElement.outerHTML;
 
-            // 2. Préparer la nouvelle chaîne de caractères pour l'objet brandsData
-            const newBrandsDataString = `const brandsData = ${JSON.stringify(brandsData, null, 4)};`;
+            // 2. Préparer la nouvelle chaîne de caractères pour l'objet brandsData, en échappant les caractères HTML
+            // C'est la correction clé pour éviter de "casser" le script dans le fichier généré.
+            const jsonString = JSON.stringify(brandsData, null, 4).replace(/</g, '\\u003c');
+            const newBrandsDataString = `let brandsData = ${jsonString};`;
 
             // 3. Utiliser une expression régulière pour trouver et remplacer l'ancienne déclaration de brandsData
-            const brandsDataRegex = /const\s+brandsData\s*=\s*\{[\s\S]*?\};/;
+            const brandsDataRegex = /(?:let|const)\s+brandsData\s*=\s*\{[\s\S]*?\};/;
             
             if (brandsDataRegex.test(currentHtml)) {
                 currentHtml = currentHtml.replace(brandsDataRegex, newBrandsDataString);
             } else {
-                alert("Erreur : Impossible de trouver la déclaration 'brandsData' dans le code source pour la mettre à jour.");
+                alert("Erreur critique : Impossible de trouver la déclaration 'brandsData' dans le code source pour la mettre à jour. La sauvegarde a échoué.");
                 return;
             }
 
@@ -2872,6 +3048,9 @@ Merci de confirmer ce rendez-vous ! 🙏`;
 
         // Charger les stats et marques sauvegardées au démarrage
         document.addEventListener('DOMContentLoaded', function() {
+            // Charger les favoris
+            loadFavorites();
+
             // Charger les marques sauvegardées
             const savedBrands = localStorage.getItem('monVehiculeBrands');
             if (savedBrands) {
@@ -2883,7 +3062,7 @@ Merci de confirmer ce rendez-vous ! 🙏`;
                 } catch (e) {
                     console.error('❌ Erreur lors du chargement des marques sauvegardées:', e);
                 }
-            }
+            }r
             
             // Toujours régénérer l'affichage des marques pour s'assurer que les `onclick` sont attachés.
             // C'est la correction clé pour le fichier téléchargé.
