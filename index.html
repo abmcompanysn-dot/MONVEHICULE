@@ -3409,13 +3409,23 @@ Merci !`;
                 adminPanel.classList.add('hidden');
             }
 
+            // Sauvegarder l'état du scroll et le réinitialiser pour la sauvegarde
+            const originalOverflow = document.body.style.overflow;
+            document.body.style.overflow = 'auto';
+
             // 1. Obtenir le HTML actuel de la page
             let currentHtml = document.documentElement.outerHTML;
+
+            // Rétablir l'état du scroll pour la vue actuelle de l'utilisateur
+            document.body.style.overflow = originalOverflow;
 
             // Rétablir la visibilité du panneau admin si il était ouvert
             if (wasAdminPanelVisible) {
                 adminPanel.classList.remove('hidden');
             }
+
+            // S'assurer que le style 'overflow: hidden' n'est pas sauvegardé sur le body
+            currentHtml = currentHtml.replace(' style="overflow: hidden;"', '');
 
             // 2. Préparer la nouvelle chaîne de caractères pour l'objet brandsData, en échappant les caractères HTML
             // C'est la correction clé pour éviter de "casser" le script dans le fichier généré.
